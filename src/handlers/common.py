@@ -24,15 +24,20 @@ async def start(message: types.Message, state: FSMContext, dialog_manager: Dialo
     except:
         pass
     if await rq.check_user(message.from_user.id):
-        await message.answer(f'Добро пожаловать в наш магазин, выберите необходимую опцию', reply_markup=kb.start)
+        await message.answer(f'Добро пожаловать в наш магазин, выберите необходимую опцию', reply_markup=kb.start_kb)
     else:
         await message.answer(f'Здравствуйте! Вам есть 18 лет?"', reply_markup=inkb.yes_no_kb)
 
+
 @router.callback_query(F.data == 'no')
 async def cancellation(callback: types.CallbackQuery, state: FSMContext):
-    await callback.message.answer(f'К сожалению вы не можете пользоваться нашим магазином')
+    await callback.message.delete()
+    await callback.message.answer(f'К сожалению, Вы не можете пользоваться нашим магазином')
     await state.set_state(default_state)
+
 
 @router.callback_query(F.data == 'yes')
 async def start_registration(callback: types.CallbackQuery, state: FSMContext):
+    await callback.message.delete()
+    await rq.set_user(callback.from_user.id)
     await start_registration_name(callback.message, state)

@@ -1,12 +1,9 @@
-from sqlalchemy import BigInteger, String, ForeignKey, Null
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import BigInteger, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 from src.data.config import database_url
 import pandas as pd
 import csv
-from sqlalchemy import select
-
-from bs4 import BeautifulSoup
 
 
 engine = create_async_engine(url=database_url, echo=True)
@@ -36,6 +33,7 @@ class Catalog(Base):
     tyagi: Mapped[str] = mapped_column(String(100), nullable=True)
     vkus: Mapped[str] = mapped_column(String(100), nullable=True)
     image: Mapped[str] = mapped_column(String(200), nullable=True)
+
 
 async def async_main():
     async with engine.begin() as conn:
