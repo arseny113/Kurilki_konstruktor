@@ -35,6 +35,16 @@ class Catalog(Base):
     image: Mapped[str] = mapped_column(String(200), nullable=True)
 
 
+class Order(Base):
+    __tablename__ = 'orders'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    tg_id: Mapped[int] = mapped_column(BigInteger)
+    prod_id: Mapped[int] = mapped_column(nullable=True)
+    amount: Mapped[int] = mapped_column(nullable=True)
+    status: Mapped[str] = mapped_column(String(20), nullable=True)
+
+
 async def async_main():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
