@@ -1,5 +1,5 @@
 from src.utils.funcs import get_image_ratio, get_image_size
-from src.database.models import async_session, User, Catalog
+from src.database.models import async_session, User, Catalog, Order
 from sqlalchemy import select, delete
 
 
@@ -52,3 +52,17 @@ async def get_email(tg_id):
     async with async_session() as session:
         email = await session.scalar(select(User.email).where(User.tg_id == tg_id))
         return email
+
+
+async def get_orders(tg_id):
+    async with async_session() as session:
+        query = select(Order.prod_id, Order.amount).where(Order.tg_id == tg_id)
+        result = await session.execute(query)
+        return result.scalars().all()
+
+
+async def get_products(prod_id):
+    async with async_session() as session:
+        query = select(Catalog.brand, Catalog.puffs, Catalog.flavor).where(Catalog.id == prod_id)
+        result = await session.execute(query)
+        return result.scalars().first()

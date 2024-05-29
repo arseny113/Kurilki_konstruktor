@@ -30,8 +30,8 @@ class Catalog(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     brand: Mapped[str] = mapped_column(String(100), nullable=True)
-    tyagi: Mapped[str] = mapped_column(String(100), nullable=True)
-    vkus: Mapped[str] = mapped_column(String(100), nullable=True)
+    puffs: Mapped[str] = mapped_column(String(100), nullable=True)
+    flavor: Mapped[str] = mapped_column(String(100), nullable=True)
     image: Mapped[str] = mapped_column(String(200), nullable=True)
 
 
@@ -63,8 +63,8 @@ async def async_main():
                 record = Catalog(**{
                     'id': int(row[0]),
                     'brand': row[1],
-                    'tyagi': row[2],
-                    'vkus': row[3],
+                    'puffs': row[2],
+                    'flavor': row[3],
                     'image': row[4]
                 })
                 session.add(record)
