@@ -46,3 +46,9 @@ async def get_number(tg_id):
     async with async_session() as session:
         phone = await session.scalar(select(User.phone).where(User.tg_id == tg_id))
         return phone
+
+
+async def get_email(tg_id):
+    async with async_session() as session:
+        email = await session.scalar(select(User.email).where(User.tg_id == tg_id))
+        return email
