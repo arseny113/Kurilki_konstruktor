@@ -60,6 +60,15 @@ async def get_orders(tg_id):
         result = await session.execute(query)
         return result.scalars().all()
 
+async def write_to_order(tg_id, product, quant):
+    async with async_session() as session:
+        order = await session.get(Order, tg_id)
+        if order:
+            order.prod_id = product
+            order.amount = quant
+        else:
+            session.add(Order(tg_id=tg_id, prod_id=product, amount=quant))
+        session.commit()
 
 async def get_products(prod_id):
     async with async_session() as session:
