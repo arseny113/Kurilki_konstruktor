@@ -11,12 +11,12 @@ from aiogram_dialog.widgets.media import DynamicMedia, StaticMedia
 from aiogram.types import ContentType
 import operator
 
-from src.handlers.order_registration import checking_product_availability
+from src.handlers.order_registration import sending_order
 
 from .states import Catalog_levels
 from .getters import get_level_4, get_level_5, get_level_3, get_item, get_selected_items
 from .callbacks import selected_level3, selected_level4, selected_level5, \
-    selected_item3, to_item, back, selected_item4,selected_item5, to_cart, to_main, go_to_cart, increment, decrement, quant
+    selected_item3, to_item, back, selected_item4, selected_item5, to_main, increment, decrement, quant
 
 
 
@@ -89,8 +89,8 @@ Catalog_lvl1 = Dialog(
                "{puffs} "
                "{flavor}"
                ),
-        Row(Button(Const("+"), id="increment", on_click=increment), Button(Format('Кол-во: {quant}'), id="quant", on_click=quant), Button(Const("-"), id="decrement", on_click=decrement)),
-        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("Оформить заказ"), id='to_order', on_click=checking_product_availability),
+        Row(Button(Const("-"), id="decrement", on_click=decrement), Button(Format('Кол-во: {quant}'), id="quant", on_click=quant), Button(Const("+"), id="increment", on_click=increment)),
+        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("Оформить заказ"), id='to_order', on_click=sending_order),
             Back(Const("⬅ Назад"))),
         state=Catalog_levels.item,
         getter=get_item,

@@ -42,7 +42,6 @@ class Order(Base):
     tg_id: Mapped[int] = mapped_column(BigInteger)
     prod_id: Mapped[int] = mapped_column(nullable=True)
     amount: Mapped[int] = mapped_column(nullable=True)
-    status: Mapped[str] = mapped_column(String(20), nullable=True)
 
 
 async def async_main():

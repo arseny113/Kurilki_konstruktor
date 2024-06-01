@@ -8,7 +8,6 @@ from src.handlers.faq import faq_router
 from src.handlers.catalog import catalog_router
 from src.keyboards.set_menu import set_main_menu
 from src.database.models import async_main
-# from src.handlers.orders import order_router
 from src.dialogs.Catalog.catalog_dialogs import Catalog_lvl1
 from aiogram_dialog import setup_dialogs
 from src.handlers.order_registration import order_registration_router
@@ -22,7 +21,6 @@ async def main():
     dp.include_router(catalog_router)
     dp.include_router(settings_router)
     dp.include_router(faq_router)
-    # dp.include_router(order_router)
     dp.include_router(order_registration_router)
     dp.include_router(Catalog_lvl1)
     setup_dialogs(dp)

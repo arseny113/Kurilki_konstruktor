@@ -25,7 +25,7 @@ async def to_personal_account(message: types.Message, state: FSMContext, dialog_
 async def to_personal_account(message: types.Message):
     orders = await rq.get_orders(message.from_user.id)
     if orders:
-        await message.answer("Вы заказывали:\n" + "\n".join([" ".join(await rq.get_products(order.prod_id)) + order.amount for order in orders]),
+        await message.answer("Вы заказывали:\n" + "\n".join([" ".join(await rq.get_product(order[0].prod_id)) + f" в количестве: {order[0].amount}" for order in orders]),
                              reply_markup=kb.account_kb)
     else:
         await message.answer("Вы ещё ничего у нас не заказывали", reply_markup=kb.account_kb)

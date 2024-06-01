@@ -56,22 +56,19 @@ async def get_email(tg_id):
 
 async def get_orders(tg_id):
     async with async_session() as session:
-        query = select(Order.prod_id, Order.amount).where(Order.tg_id == tg_id)
+        query = select(Order).where(Order.tg_id == tg_id)
         result = await session.execute(query)
-        return result.scalars().all()
+        return result.all()
+
 
 async def write_to_order(tg_id, product, quant):
     async with async_session() as session:
-        order = await session.get(Order, tg_id)
-        if order:
-            order.prod_id = product
-            order.amount = quant
-        else:
-            session.add(Order(tg_id=tg_id, prod_id=product, amount=quant))
-        session.commit()
+        session.add(Order(tg_id=tg_id, prod_id=product, amount=quant))
+        await session.commit()
 
-async def get_products(prod_id):
+
+async def get_product(prod_id):
     async with async_session() as session:
         query = select(Catalog.brand, Catalog.puffs, Catalog.flavor).where(Catalog.id == prod_id)
         result = await session.execute(query)
-        return result.scalars().first()
+        return result.first()
