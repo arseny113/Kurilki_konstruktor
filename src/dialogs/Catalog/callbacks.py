@@ -2,8 +2,15 @@ from aiogram.types import CallbackQuery, InputMediaPhoto
 from aiogram_dialog import DialogManager, StartMode
 from aiogram_dialog.widgets.kbd import Button, Select
 from .states import Catalog_levels
+from ..Cart.states import Cart_levels
+from ...database.requests import orm_add_to_cart
 import src.keyboards.default.reply as kb
-
+"""from src.database.models import async_session, Catalog, lvl2_base, lvl3_base, lvl4_base, lvl5_base"""
+from sqlalchemy import select
+import src.database.requests as rq
+from aiogram.fsm.context import FSMContext
+import src.states.user as user_states
+from src.database.models import async_session
 
 #запись id для уровня 3
 async def selected_level3(
@@ -90,12 +97,31 @@ async def back(
         await dialog_manager.switch_to(Catalog_levels.level_5)
 
 
+#добавление в корзину
+async def to_cart(
+    callback_query: CallbackQuery,
+    widget: Button,
+    dialog_manager: DialogManager,
+):
+    await orm_add_to_cart(tg_id=callback_query.from_user.id, prod_id=int(dialog_manager.current_context().dialog_data.get('item_id')), quant=dialog_manager.dialog_data["quant"])
+    await callback_query.answer("Товар добавлен в корзину")
+    await dialog_manager.switch_to(Catalog_levels.level_5)
+
 async def to_main(callback_query: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,):
     await dialog_manager.done()
-    await callback_query.message.answer('Добро пожаловать в наш магазин, выберите необходимую опцию', reply_markup=kb.start_kb)
+    await callback_query.message.answer('Добро пожаловать в наш магазин, выберите необходимую опцию"', reply_markup=kb.start_kb)
 
+async def go_to_cart(
+    callback_query: CallbackQuery,
+    widget: Button,
+    dialog_manager: DialogManager,
+):
+    await callback_query.answer('Корзина')
+    await dialog_manager.done()
+
+    await dialog_manager.start(Cart_levels.select_products, data={'user_id': callback_query.from_user.id}, mode=StartMode.RESET_STACK)
 
 async def increment(
     callback_query: CallbackQuery,

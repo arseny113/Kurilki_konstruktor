@@ -10,7 +10,7 @@ from src.dialogs.Catalog.states import Catalog_levels
 
 # команда старт
 @catalog_router.message(Command(commands='catalog'))
-@catalog_router.message(F.text == 'Сделать заказ')
+@catalog_router.message(F.text == 'Каталог')
 async def catalog_lvl1(message: types.Message, dialog_manager: DialogManager):
     await dialog_manager.start(Catalog_levels.level_3, mode=StartMode.RESET_STACK)
 

@@ -1,7 +1,7 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 start_kb = ReplyKeyboardMarkup(keyboard=[
-    [KeyboardButton(text='Сделать заказ')],
+    [KeyboardButton(text='Каталог'), KeyboardButton(text='Корзина')],
     [KeyboardButton(text='Личный кабинет'), KeyboardButton(text='Вопросы и ответы')],
 ], resize_keyboard=True, input_field_placeholder='Выберете необходимую опцию')
 
