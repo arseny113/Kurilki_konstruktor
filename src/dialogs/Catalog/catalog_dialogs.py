@@ -82,7 +82,7 @@ Catalog_lvl1 = Dialog(
     ),
     Window(
         StaticMedia(
-        url=Format('{image}'),
+        path=Format('{image}'),
         type=ContentType.PHOTO,
     ),
         Format("Вы выбрали: {brand} "

@@ -50,7 +50,7 @@ async def async_main():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
-    with open(r'src/database/DB_ver01.csv', encoding='cp1251') as file:
+    with open(r'src/database/DB_ver04.csv', encoding='cp1251') as file:
         reader = csv.reader(file, delimiter=';')
         header = list(next(reader))
         all_products = []
