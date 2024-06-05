@@ -1,12 +1,9 @@
-from sqlalchemy import BigInteger, String, ForeignKey, Null
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import BigInteger, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 from src.data.config import database_url
 import pandas as pd
 import csv
-from sqlalchemy import select
-
-from bs4 import BeautifulSoup
 
 
 engine = create_async_engine(url=database_url, echo=True)
@@ -33,9 +30,20 @@ class Catalog(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     brand: Mapped[str] = mapped_column(String(100), nullable=True)
-    tyagi: Mapped[str] = mapped_column(String(100), nullable=True)
-    vkus: Mapped[str] = mapped_column(String(100), nullable=True)
+    puffs: Mapped[str] = mapped_column(String(100), nullable=True)
+    flavor: Mapped[str] = mapped_column(String(100), nullable=True)
     image: Mapped[str] = mapped_column(String(200), nullable=True)
+
+
+class Order(Base):
+    __tablename__ = 'orders'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    tg_id: Mapped[int] = mapped_column(BigInteger)
+    prod_id: Mapped[int] = mapped_column(nullable=True)
+    amount: Mapped[int] = mapped_column(nullable=True)
+    status: Mapped[str] = mapped_column(nullable=True)
+
 
 async def async_main():
     async with engine.begin() as conn:
@@ -55,8 +63,8 @@ async def async_main():
                 record = Catalog(**{
                     'id': int(row[0]),
                     'brand': row[1],
-                    'tyagi': row[2],
-                    'vkus': row[3],
+                    'puffs': row[2],
+                    'flavor': row[3],
                     'image': row[4]
                 })
                 session.add(record)

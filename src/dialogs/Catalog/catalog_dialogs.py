@@ -11,6 +11,8 @@ from aiogram_dialog.widgets.media import DynamicMedia, StaticMedia
 from aiogram.types import ContentType
 import operator
 
+from src.handlers.order_registration import sending_order
+
 from .states import Catalog_levels
 from .getters import get_level_4, get_level_5, get_level_3, get_item, get_selected_items
 from .callbacks import selected_level3, selected_level4, selected_level5, \
@@ -34,7 +36,7 @@ Catalog_lvl1 = Dialog(
             width=1,
             hide_on_single_page=True
         ),
-        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("Корзина"), id="go_to_cart", on_click=go_to_cart)),
+        Button(Const("На главную"), id="to_main", on_click=to_main),
         state=Catalog_levels.level_3,
         getter=get_level_3,
     ),
@@ -53,8 +55,8 @@ Catalog_lvl1 = Dialog(
             width=1,
             hide_on_single_page=True
         ),
-        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("Корзина"), id="go_to_cart", on_click=go_to_cart),
-            Back(Const("⬅ Назад"))),
+        Button(Const("На главную"), id="to_main", on_click=to_main),
+        Back(Const("⬅ Назад")),
         state=Catalog_levels.level_4,
         getter=get_level_4,
     ),
@@ -66,15 +68,15 @@ Catalog_lvl1 = Dialog(
                 items="lvl5",
                 item_id_getter=operator.itemgetter(1),
                 text=Format("{item[0]}"),
-                on_click=selected_level5,
+                on_click=to_item,
             ),
             id="lvl5_group",
             height=10,
             width=1,
             hide_on_single_page=True
         ),
-        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("Корзина"), id="go_to_cart", on_click=go_to_cart),
-            Back(Const("⬅ Назад"))),
+        Button(Const("На главную"), id="to_main", on_click=to_main),
+        Back(Const("⬅ Назад")),
         state=Catalog_levels.level_5,
         getter=get_level_5,
     ),
@@ -83,19 +85,12 @@ Catalog_lvl1 = Dialog(
         url=Format('{image}'),
         type=ContentType.PHOTO,
     ),
-        Format("Вы выбрали: {name}\n"
-               "Цена: {price}\n"
-               "Характеристика:\n"
-               "{type_comp}\n"
-               "{brend}\n"
-               "{garant}\n"
-               "{cold_pr}\n"
-               "{warm_pr}\n"
-               "{power_cons_cold}\n"
-               "{power_cons_warm}\n"
-               "{wifi}"),
-        Row(Button(Const("+"), id="increment", on_click=increment), Button(Format('Кол-во: {quant}'), id="quant", on_click=quant), Button(Const("-"), id="decrement", on_click=decrement)),
-        Row(Button(Const("В корзину"), id="to_cart", on_click=to_cart), Button(Const("На главную"), id="to_main", on_click=to_main),
+        Format("Вы выбрали: {brand} "
+               "{puffs} "
+               "{flavor}"
+               ),
+        Row(Button(Const("-"), id="decrement", on_click=decrement), Button(Format('Кол-во: {quant}'), id="quant", on_click=quant), Button(Const("+"), id="increment", on_click=increment)),
+        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("В корзину"), id='to_cart', on_click=to_cart),
             Back(Const("⬅ Назад"))),
         state=Catalog_levels.item,
         getter=get_item,

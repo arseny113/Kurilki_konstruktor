@@ -1,1 +1,1 @@
-# Air conditioner bot
+# Kurilki bot
