@@ -8,6 +8,7 @@ start_kb = ReplyKeyboardMarkup(keyboard=[
 account_kb = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Настройки')],
     [KeyboardButton(text='История заказов')],
+    [KeyboardButton(text='Главное меню')],
 ], resize_keyboard=True, input_field_placeholder='Выберете необходимую опцию')
 
 back_kb = ReplyKeyboardMarkup(keyboard=[
@@ -23,9 +24,11 @@ send_contact_kb = ReplyKeyboardMarkup(keyboard=[
 ], resize_keyboard=True, one_time_keyboard=True)
 
 faq_kb = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Общие вопросы')],
-                                       [KeyboardButton(text='Наши контакты')]
+                                       [KeyboardButton(text='Наши контакты')],
+                                       [KeyboardButton(text='Главное меню')],
                                        ], resize_keyboard=True, one_time_keyboard=True)
 
 questions_kb = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Какие самые популярные бренды России?')],
-                                             [KeyboardButton(text='Вейпы с наиболее яркими вкусами.')]
+                                             [KeyboardButton(text='Вейпы с наиболее яркими вкусами.')],
+                                             [KeyboardButton(text='Главное меню')]
                                              ], resize_keyboard=True, one_time_keyboard=True)
