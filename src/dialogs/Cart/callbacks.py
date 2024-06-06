@@ -14,7 +14,7 @@ async def to_main(callback_query: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,):
     await dialog_manager.done()
-    await callback_query.message.answer('Добро пожаловать в наш магазин, выберите необходимую опцию', reply_markup=kb.start_kb)
+    await callback_query.message.answer('Вас приветствует интернет магазин кондиционеров "Центр климата"', reply_markup=kb.start)
 
 async def selected_product(
     callback_query: CallbackQuery,
