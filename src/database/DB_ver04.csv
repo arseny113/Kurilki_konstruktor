@@ -1,7 +1,7 @@
 ID;Бренд;Кол-во тяжек;Вкус;Фото
 1;SeaBear;11000;Strawberry Lullaby;src/database/photo/SeaBear/Strawberry Lullaby.jpg
 2;SeaBear;11000;Sour Apple;src/database/photo/SeaBear/Sour Apple.jpg
-3;SeaBear;11000;Blue Brazz;src/database/photo/NoImage.png
+3;SeaBear;11000;Blue Brazz;src/database/photo/NoImage.jpg
 4;SeaBear;11000;Sunshine Kiwi;src/database/photo/SeaBear/Sunshine Kiwi.jpg
 5;SeaBear;11000;Mango Trip;src/database/photo/SeaBear/Mango Trip.jpg
 6;SeaBear;11000;Watermelon Chill;src/database/photo/SeaBear/Watermelon Chill.jpg
@@ -9,53 +9,53 @@ ID;Бренд;Кол-во тяжек;Вкус;Фото
 8;SeaBear;11000;Blackberry Guava Ice;src/database/photo/SeaBear/Blackberry Guava Ice.jpg
 9;SeaBear;11000;Cranberry Juice;src/database/photo/SeaBear/Cranberry Juice.jpg
 10;SeaBear;11000;Blue Raspberry;src/database/photo/SeaBear/Blue Raspberry.jpg
-11;Air Stick;7000;Mango;src/database/photo/AirStick/Mango.png
-12;Air Stick;7000;Mint ice;src/database/photo/AirStick/Mint ice.png
-13;Air Stick;7000;Pina colade;src/database/photo/AirStick/Pina colade.png
-14;Air Stick;7000;Mix berry;src/database/photo/AirStick/Mix berry.png
-15;Air Stick;7000;Watermelon ice;src/database/photo/AirStick/Watermelon ice.png
-16;Air Stick;7000;Blue razz lemon;src/database/photo/AirStick/Blue razz lemon.png
-17;Air Stick;7000;Strawberry watermelon ice;src/database/photo/AirStick/Strawberry watermelon ice.png
-18;Air Stick;7000;Grape ice;src/database/photo/AirStick/Grape ice.png
-19;Air Stick;7000;Strawberry donat;src/database/photo/AirStick/Strawberry donat.png
-20;Air Stick;7000;Vanilla-custer tobacco;src/database/photo/AirStick/Vanilla-custer tobacco.png
-21;EPE;10000;Bиноград лед;src/database/photo/AP10000/Bиноград лед.png
-22;EPE;10000;Сочный персик;src/database/photo/AP10000/Сочный персик.png
-23;EPE;10000;Ананас лед;src/database/photo/AP10000/Ананас лед.png
-24;EPE;10000;Ментол;src/database/photo/AP10000/Ментол.png
-25;EPE;10000;Апельсиновая газировка;src/database/photo/AP10000/Апельсиновая газировка.png
-26;EPE;10000;Мармеладные мишки;src/database/photo/AP10000/Мармеладные мишки.png
-27;EPE;10000;Арбуз лед;src/database/photo/AP10000/Арбуз лед.png
-28;EPE;10000;Яблоко клубника персик лед;src/database/photo/AP10000/Яблоко клубника персик лед.png
-29;EPE;10000;Арбуз яблоко лед;src/database/photo/AP10000/Арбуз яблоко лед.png
-30;EPE;10000;Клубничные вафли;src/database/photo/AP10000/Клубничные вафли.png
-31;EPE;10000;Сакура виноград;src/database/photo/AP10000/Сакура виноград.png
-32;EPE;10000;Черника малина;src/database/photo/AP10000/Черника малина.png
-33;EPE;10000;Клюквенный лимонад лед;src/database/photo/AP10000/Клюквенный лимонад лед.png
-34;EPE;10000;Кола лед;src/database/photo/AP10000/Кола лед.png
-35;EPE;10000;Яблочный пирог;src/database/photo/AP10000/Яблочный пирог.png
-36;EPE;10000;Черника гранат лед;src/database/photo/AP10000/Черника гранат лед.png
-37;EPE;10000;Алоэ манго лед;src/database/photo/AP10000/Алоэ манго лед.png
-38;EPE;10000;Банановые конфеты;src/database/photo/AP10000/Банановые конфеты.png
-39;EPE;10000;Ананас манго апельсин лед;src/database/photo/AP10000/Ананас манго апельсин лед.png
-40;EPE;10000;Клубничный чизкейк;src/database/photo/AP10000/Клубничный чизкейк.png
-41;EPE;15000;Кислое яблоко;src/database/photo/AP15000/Кислое яблоко.png
-42;EPE;15000;Виноград лед;src/database/photo/NoImage.png
-43;EPE;15000;Bзрыв личи;src/database/photo/NoImage.png
-44;EPE;15000;Взрыв клубники;src/database/photo/AP15000/Взрыв клубники.png
-45;EPE;15000;Малина арбуз;src/database/photo/AP15000/Малина арбуз.png
-46;EPE;15000;Питайя роя и персик;src/database/photo/NoImage.png
-47;EPE;15000;Ягодный микс;src/database/photo/NoImage.png
-48;EPE;15000;Черника лимон лед;src/database/photo/NoImage.png
-49;EPE;15000;Ананас кокосовое молоко лед;src/database/photo/AP15000/Ананас кокосовое молоко лед.png
-50;EPE;15000;Мандарин дыня;src/database/photo/NoImage.png
-51;EPE;15000;Манго маракуйя;src/database/photo/NoImage.png
-52;EPE;15000;Вишня мята;src/database/photo/NoImage.png
-53;EPE;15000;Малина жасминовый чай;src/database/photo/NoImage.png
-54;EPE;15000;Крекер с морской солью;src/database/photo/NoImage.png
-55;EPE;15000;Вишневый лимонад;src/database/photo/NoImage.png
-56;EPE;15000;Кола лед;src/database/photo/NoImage.png
-57;EPE;15000;Свежая мята;src/database/photo/NoImage.png
-58;EPE;15000;Клуюника банан;src/database/photo/NoImage.png
-59;EPE;15000;Арбуз лед;src/database/photo/NoImage.png
-60;EPE;15000;Гранат лед;src/database/photo/NoImage.png
+11;Air Stick;7000;Mango;src/database/photo/AirStick/Mango.jpg
+12;Air Stick;7000;Mint ice;src/database/photo/AirStick/Mint ice.jpg
+13;Air Stick;7000;Pina colade;src/database/photo/AirStick/Pina colade.jpg
+14;Air Stick;7000;Mix berry;src/database/photo/AirStick/Mix berry.jpg
+15;Air Stick;7000;Watermelon ice;src/database/photo/AirStick/Watermelon ice.jpg
+16;Air Stick;7000;Blue razz lemon;src/database/photo/AirStick/Blue razz lemon.jpg
+17;Air Stick;7000;Strawberry watermelon ice;src/database/photo/AirStick/Strawberry watermelon ice.jpg
+18;Air Stick;7000;Grape ice;src/database/photo/AirStick/Grape ice.jpg
+19;Air Stick;7000;Strawberry donat;src/database/photo/AirStick/Strawberry donat.jpg
+20;Air Stick;7000;Vanilla-custer tobacco;src/database/photo/AirStick/Vanilla-custer tobacco.jpg
+21;EPE;10000;Bиноград лед;src/database/photo/AP10000/Bиноград лед.jpg
+22;EPE;10000;Сочный персик;src/database/photo/AP10000/Сочный персик.jpg
+23;EPE;10000;Ананас лед;src/database/photo/AP10000/Ананас лед.jpg
+24;EPE;10000;Ментол;src/database/photo/AP10000/Ментол.jpg
+25;EPE;10000;Апельсиновая газировка;src/database/photo/AP10000/Апельсиновая газировка.jpg
+26;EPE;10000;Мармеладные мишки;src/database/photo/AP10000/Мармеладные мишки.jpg
+27;EPE;10000;Арбуз лед;src/database/photo/AP10000/Арбуз лед.jpg
+28;EPE;10000;Яблоко клубника персик лед;src/database/photo/AP10000/Яблоко клубника персик лед.jpg
+29;EPE;10000;Арбуз яблоко лед;src/database/photo/AP10000/Арбуз яблоко лед.jpg
+30;EPE;10000;Клубничные вафли;src/database/photo/AP10000/Клубничные вафли.jpg
+31;EPE;10000;Сакура виноград;src/database/photo/AP10000/Сакура виноград.jpg
+32;EPE;10000;Черника малина;src/database/photo/AP10000/Черника малина.jpg
+33;EPE;10000;Клюквенный лимонад лед;src/database/photo/AP10000/Клюквенный лимонад лед.jpg
+34;EPE;10000;Кола лед;src/database/photo/AP10000/Кола лед.jpg
+35;EPE;10000;Яблочный пирог;src/database/photo/AP10000/Яблочный пирог.jpg
+36;EPE;10000;Черника гранат лед;src/database/photo/AP10000/Черника гранат лед.jpg
+37;EPE;10000;Алоэ манго лед;src/database/photo/AP10000/Алоэ манго лед.jpg
+38;EPE;10000;Банановые конфеты;src/database/photo/AP10000/Банановые конфеты.jpg
+39;EPE;10000;Ананас манго апельсин лед;src/database/photo/AP10000/Ананас манго апельсин лед.jpg
+40;EPE;10000;Клубничный чизкейк;src/database/photo/AP10000/Клубничный чизкейк.jpg
+41;EPE;15000;Кислое яблоко;src/database/photo/AP15000/Кислое яблоко.jpg
+42;EPE;15000;Виноград лед;src/database/photo/NoImage.jpg
+43;EPE;15000;Bзрыв личи;src/database/photo/NoImage.jpg
+44;EPE;15000;Взрыв клубники;src/database/photo/AP15000/Взрыв клубники.jpg
+45;EPE;15000;Малина арбуз;src/database/photo/AP15000/Малина арбуз.jpg
+46;EPE;15000;Питайя роя и персик;src/database/photo/NoImage.jpg
+47;EPE;15000;Ягодный микс;src/database/photo/NoImage.jpg
+48;EPE;15000;Черника лимон лед;src/database/photo/NoImage.jpg
+49;EPE;15000;Ананас кокосовое молоко лед;src/database/photo/AP15000/Ананас кокосовое молоко лед.jpg
+50;EPE;15000;Мандарин дыня;src/database/photo/NoImage.jpg
+51;EPE;15000;Манго маракуйя;src/database/photo/NoImage.jpg
+52;EPE;15000;Вишня мята;src/database/photo/NoImage.jpg
+53;EPE;15000;Малина жасминовый чай;src/database/photo/NoImage.jpg
+54;EPE;15000;Крекер с морской солью;src/database/photo/NoImage.jpg
+55;EPE;15000;Вишневый лимонад;src/database/photo/NoImage.jpg
+56;EPE;15000;Кола лед;src/database/photo/NoImage.jpg
+57;EPE;15000;Свежая мята;src/database/photo/NoImage.jpg
+58;EPE;15000;Клуюника банан;src/database/photo/NoImage.jpg
+59;EPE;15000;Арбуз лед;src/database/photo/NoImage.jpg
+60;EPE;15000;Гранат лед;src/database/photo/NoImage.jpg
