@@ -43,9 +43,15 @@ Cart = Dialog(
         path=Format('{image}'),
         type=ContentType.PHOTO,
     ),
-        Format("Вы выбрали: {brand} "
-               "{puffs} "
-               "{flavor}\n"
+        Format("Вы выбрали: {brand}\n"
+               "Кол-во затяжек: до {puffs}\n"
+               "Вкус: {flavor}\n"
+               "Объем жидкости: {volume} мл\n"
+               "Содержание никотина: {nicotine}\n"
+               "Нагревательных элеметов: {heat_element}\n"
+               "Батарея: {battery} мАч\n"
+               "Разъём для зарядки: {connector}\n"
+               "Состав: {compound}\n"
                 "Количество {quant}"
                ),
         Row(Button(Const("Удалить"), id="delete", on_click=delete), Button(Const("+"), id="increase", on_click=increase),

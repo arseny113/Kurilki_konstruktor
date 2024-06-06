@@ -66,7 +66,13 @@ async def get_item(dialog_manager: DialogManager, **middleware_data):
                 'image': db_main.image,
                 'flavor': db_main.flavor,
                 'puffs': db_main.puffs,
-                'quant': dialog_manager.current_context().dialog_data.get('quant')
+                'quant': dialog_manager.current_context().dialog_data.get('quant'),
+                'volume': db_main.volume,
+                'nicotine': db_main.nicotine,
+                'heat_element': db_main.heat_element,
+                'battery': db_main.battery,
+                'connector': db_main.connector,
+                'compound': db_main.compound
                 }
 
         return data

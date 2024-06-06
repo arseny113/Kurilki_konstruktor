@@ -33,7 +33,12 @@ class Catalog(Base):
     puffs: Mapped[str] = mapped_column(String(100), nullable=True)
     flavor: Mapped[str] = mapped_column(String(100), nullable=True)
     image: Mapped[str] = mapped_column(String(200), nullable=True)
-
+    volume: Mapped[str] = mapped_column(String(200), nullable=True)
+    nicotine: Mapped[str] = mapped_column(String(200), nullable=True)
+    heat_element: Mapped[str] = mapped_column(String(200), nullable=True)
+    battery: Mapped[str] = mapped_column(String(200), nullable=True)
+    connector: Mapped[str] = mapped_column(String(200), nullable=True)
+    compound: Mapped[str] = mapped_column(String(300), nullable=True)
 
 class Order(Base):
     __tablename__ = 'orders'
@@ -50,7 +55,7 @@ async def async_main():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
-    with open(r'src/database/DB_ver04.csv', encoding='cp1251') as file:
+    with open(r'src/database/DB_ver05.csv', encoding='cp1251') as file:
         reader = csv.reader(file, delimiter=';')
         header = list(next(reader))
         all_products = []
@@ -65,7 +70,13 @@ async def async_main():
                     'brand': row[1],
                     'puffs': row[2],
                     'flavor': row[3],
-                    'image': row[4]
+                    'image': row[4],
+                    'volume': row[5],
+                    'nicotine': row[6],
+                    'heat_element': row[7],
+                    'battery': row[8],
+                    'connector': row[9],
+                    'compound': row[10]
                 })
                 session.add(record)
 
