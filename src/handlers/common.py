@@ -30,7 +30,7 @@ async def start(message: types.Message, state: FSMContext, dialog_manager: Dialo
     except:
         pass
     if await rq.check_user(message.from_user.id):
-        await message.answer(f'Добро пожаловать в наш магазин, выберите необходимую опцию', reply_markup=kb.start_kb)
+        await message.answer(f'Добро пожаловать в HotSmok! Выберите необходимую опцию', reply_markup=kb.start_kb)
     else:
         await message.answer(f'Здравствуйте! Вам есть 18 лет?', reply_markup=inkb.yes_no_kb)
 

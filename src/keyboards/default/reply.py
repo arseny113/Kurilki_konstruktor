@@ -28,7 +28,7 @@ faq_kb = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Общие вопр
                                        [KeyboardButton(text='Главное меню')],
                                        ], resize_keyboard=True, one_time_keyboard=True)
 
-questions_kb = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Какие самые популярные бренды России?')],
-                                             [KeyboardButton(text='Вейпы с наиболее яркими вкусами.')],
+questions_kb = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Как сделать заказ?')],
+                                             [KeyboardButton(text='Какие бренды поставляет наша компания?')],
                                              [KeyboardButton(text='Главное меню')]
                                              ], resize_keyboard=True, one_time_keyboard=True)
