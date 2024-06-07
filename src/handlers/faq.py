@@ -28,7 +28,7 @@ async def to_general_questions(message: types.Message):
 
 @faq_router.message(F.text == 'Наши контакты')
 async def to_general_questions(message: types.Message):
-    await message.answer("Номер телефона для связи: \nМенеджер: @hotsmok_cn_7", reply_markup=kb.faq_kb)
+    await message.answer("Менеджер: @hotsmok_cn_7", reply_markup=kb.faq_kb)
 
 @faq_router.message(F.text == 'Как сделать заказ?')
 async def how_to_order(message: types.Message):
