@@ -16,7 +16,7 @@ from src.handlers.order_registration import order_registration_router
 
 
 async def main():
-    #await async_main()
+    await async_main()
     dp.include_router(router)
     dp.include_router(registration_router)
     dp.include_router(account_router)
