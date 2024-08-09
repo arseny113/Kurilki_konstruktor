@@ -20,6 +20,32 @@ from .callbacks import selected_level3, selected_level4, selected_level5, \
 
 
 
+count_levels = 3
+windows = []
+states = [Catalog_levels.level_3, Catalog_levels.level_4, Catalog_levels.level_5]
+"""for window in range(count_levels):
+    windows.append(Window(
+        Const(""),
+        ScrollingGroup(
+            Select(
+                id=f"Level_{window+3}",
+                items=f"lvl{window+3}",
+                item_id_getter=operator.itemgetter(1),
+                text=Format("{item[0]}"),
+                on_click=selected_level,
+            ),
+            id=f"lvl{window+3}_group",-
+            height=10,
+            width=1,
+            hide_on_single_page=True
+        ),
+    Button(Const("На главную"), id="to_main", on_click=to_main),
+    state = states[window+3],
+    getter = get_level,
+    ))
+"""
+
+
 Catalog_lvl1 = Dialog(
     Window(
         Const("Пожалуйста, выберите бренд"),

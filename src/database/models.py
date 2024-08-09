@@ -6,9 +6,11 @@ import pandas as pd
 import csv
 
 
-engine = create_async_engine(url=database_url, echo=True)
-
+engine = create_async_engine(url=database_url, echo=True, pool_size=5, max_overflow=10)
+names = ['brand','puffs','flavor','image','volume','nicotine','heat_element','battery','connector','compound']
 async_session = async_sessionmaker(engine)
+
+
 
 
 class Base(AsyncAttrs, DeclarativeBase):
@@ -28,7 +30,9 @@ class Catalog(Base):
     __tablename__ = 'catalog'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    brand: Mapped[str] = mapped_column(String(100), nullable=True)
+    for name in names:
+        locals()[f"{name}"]: Mapped[str] = mapped_column(String(300), nullable=True)
+"""    brand: Mapped[str] = mapped_column(String(100), nullable=True)
     puffs: Mapped[str] = mapped_column(String(100), nullable=True)
     flavor: Mapped[str] = mapped_column(String(100), nullable=True)
     image: Mapped[str] = mapped_column(String(200), nullable=True)
@@ -37,7 +41,7 @@ class Catalog(Base):
     heat_element: Mapped[str] = mapped_column(String(200), nullable=True)
     battery: Mapped[str] = mapped_column(String(200), nullable=True)
     connector: Mapped[str] = mapped_column(String(200), nullable=True)
-    compound: Mapped[str] = mapped_column(String(300), nullable=True)
+    compound: Mapped[str] = mapped_column(String(300), nullable=True)"""
 
 class Order(Base):
     __tablename__ = 'orders'

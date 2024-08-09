@@ -14,7 +14,6 @@ import src.states.user as user_states
 
 router = Router()
 
-
 @router.message(CommandStart(), ~or_f(StateFilter(user_states.UserFSM.write_name),
                                       StateFilter(user_states.UserFSM.write_phone),
                                       StateFilter(user_states.UserFSM.rewrite_name),

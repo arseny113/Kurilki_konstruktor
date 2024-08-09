@@ -7,17 +7,17 @@ from aiogram_dialog import DialogManager
 
 
 order = ['SeaBear', 'Air Stick', 'EPE']
-
+lvls_names = ['brand', 'puffs', 'flavor']
+previous_choices = []
 
 #получение значений для 3 уровня
 async def get_level_3(dialog_manager: DialogManager, **middleware_data):
      async with async_session() as session:
-        db_main = list(set(await session.scalars(select(Catalog.brand))))
-        item_ids = [db_main.index(i) for i in order]
-        db_main = [db_main[i] for i in item_ids]
-        db_main_items = set(await session.scalars(select(Catalog)))
+        lvl=middleware_data.get('state')
+        expression = ''
+        db_main = set(await session.scalars(select(eval("Catalog.brand"))))
         data = {'lvl3': [(brand, await session.scalar(select(Catalog.id).where(Catalog.brand == brand))) for brand in db_main],
-                'lvl3_item': [(item.brand, item.id) for item in db_main_items]}
+                }
         return data
 
 
@@ -25,10 +25,11 @@ async def get_level_3(dialog_manager: DialogManager, **middleware_data):
 async def get_level_4(dialog_manager: DialogManager, **middleware_data):
      async with async_session() as session:
         lvl3_name = await session.scalar(select(Catalog.brand).where(Catalog.id == int(dialog_manager.current_context().dialog_data.get('level_3'))))
+        lvl = middleware_data.get('state')
         db_main = set(await session.scalars(select(Catalog.puffs).where(Catalog.brand == lvl3_name)))
         db_main_items = set(await session.scalars(select(Catalog).where(Catalog.brand == lvl3_name)))
         data = {'lvl4': [(puffs, await session.scalar(select(Catalog.id).where(Catalog.puffs == puffs))) for puffs in db_main],
-                'lvl4_item': [(item.puffs, item.id) for item in db_main_items]}
+                }
         return data
 
 #получение значений для 5 уровня
