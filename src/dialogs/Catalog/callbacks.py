@@ -13,25 +13,30 @@ import src.states.user as user_states
 from src.database.models import async_session
 
 #запись id для уровня 3
-async def selected_level3(
+states = [Catalog_levels.level_0, Catalog_levels.level_1, Catalog_levels.level_2]
+async def selected_level(
     callback_query: CallbackQuery,
     widget: Select,
     dialog_manager: DialogManager,
-    item_id: str,
+    choice: str,
 ):
-    dialog_manager.dialog_data["level_3"] = item_id
-    dialog_manager.dialog_data["user_id"] = callback_query.from_user.id
-    await dialog_manager.switch_to(Catalog_levels.level_4)
+    try:
+        dialog_manager.dialog_data["level"].append(choice)
+    except:
+        dialog_manager.dialog_data["level"] = [choice]
+    if not dialog_manager.dialog_data.get("user_id"):
+        dialog_manager.dialog_data["user_id"] = callback_query.from_user.id
+    await dialog_manager.switch_to(states[len(dialog_manager.dialog_data["level"])])
 
 #запись id для уровня 4
-async def selected_level4(
+"""async def selected_level4(
     callback_query: CallbackQuery,
     widget: Select,
     dialog_manager: DialogManager,
     item_id: str,
 ):
     dialog_manager.dialog_data["level_4"] = item_id
-    await dialog_manager.switch_to(Catalog_levels.level_5)
+    await dialog_manager.switch_to(Catalog_levels.level_5)"""
 
 #запись id для уровня 5
 async def selected_level5(

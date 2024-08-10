@@ -11,12 +11,19 @@ lvls_names = ['brand', 'puffs', 'flavor']
 previous_choices = []
 
 #получение значений для 3 уровня
-async def get_level_3(dialog_manager: DialogManager, **middleware_data):
+async def get_level(dialog_manager: DialogManager, **middleware_data):
      async with async_session() as session:
-        lvl=middleware_data.get('state')
-        expression = ''
-        db_main = set(await session.scalars(select(eval("Catalog.brand"))))
-        data = {'lvl3': [(brand, await session.scalar(select(Catalog.id).where(Catalog.brand == brand))) for brand in db_main],
+        choices = dialog_manager.current_context().dialog_data.get("level")
+        count_choices = len(choices) if choices else 0
+        expression = f'select(Catalog.{lvls_names[count_choices]})'
+        for lvl in range(count_choices):
+            if lvl == 0:
+                expression = expression + ".where("
+            expression = expression + f'Catalog.{lvls_names[lvl]} == "{choices[lvl]}", '
+            if count_choices == lvl + 1:
+                expression = expression + ")"
+        db_main = set(await session.scalars(eval(expression)))
+        data = {f'lvl{count_choices}': [(item, await session.scalar(select(Catalog.id).where(eval(f"Catalog.{lvls_names[count_choices]}") == item))) for item in db_main],
                 }
         return data
 

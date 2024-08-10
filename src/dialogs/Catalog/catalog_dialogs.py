@@ -14,98 +14,62 @@ import operator
 from src.handlers.order_registration import sending_order
 
 from .states import Catalog_levels
-from .getters import get_level_4, get_level_5, get_level_3, get_item, get_selected_items
-from .callbacks import selected_level3, selected_level4, selected_level5, \
+from .getters import get_level_4, get_level_5, get_level, get_item, get_selected_items
+from .callbacks import selected_level,  selected_level5, \
     selected_item3, to_item, back, selected_item4,selected_item5, to_cart, to_main, go_to_cart, increment, decrement, quant
 
 
 
 count_levels = 3
 windows = []
-states = [Catalog_levels.level_3, Catalog_levels.level_4, Catalog_levels.level_5]
-"""for window in range(count_levels):
-    windows.append(Window(
-        Const(""),
-        ScrollingGroup(
-            Select(
-                id=f"Level_{window+3}",
-                items=f"lvl{window+3}",
-                item_id_getter=operator.itemgetter(1),
-                text=Format("{item[0]}"),
-                on_click=selected_level,
+states = [Catalog_levels.level_0, Catalog_levels.level_1, Catalog_levels.level_2]
+for window in range(count_levels):
+    if window == 0:
+        windows.append(Window(
+            Const("Пожалуйста выберите"),
+            ScrollingGroup(
+                Select(
+                    id=f"Level_{window}",
+                    items=f"lvl{window}",
+                    item_id_getter=operator.itemgetter(0),
+                    text=Format("{item[0]}"),
+                    on_click=selected_level,
+                ),
+                id=f"lvl{window}_group",
+                height=10,
+                width=1,
+                hide_on_single_page=True
             ),
-            id=f"lvl{window+3}_group",-
-            height=10,
-            width=1,
-            hide_on_single_page=True
-        ),
-    Button(Const("На главную"), id="to_main", on_click=to_main),
-    state = states[window+3],
-    getter = get_level,
-    ))
-"""
+        Button(Const("На главную"), id="to_main", on_click=to_main),
+        state = states[window],
+        getter = get_level,
+        ))
+    else:
+        windows.append(Window(
+            Const("Пожалуйста выберите"),
+            ScrollingGroup(
+                Select(
+                    id=f"Level_{window}",
+                    items=f"lvl{window}",
+                    item_id_getter=operator.itemgetter(0),
+                    text=Format("{item[0]}"),
+                    on_click=selected_level,
+                ),
+                id=f"lvl{window}_group",
+                height=10,
+                width=1,
+                hide_on_single_page=True
+            ),
+        Back(Const("⬅ Назад")),
+        Button(Const("На главную"), id="to_main", on_click=to_main),
+        state = states[window],
+        getter = get_level,
+        ))
+
 
 
 Catalog_lvl1 = Dialog(
-    Window(
-        Const("Пожалуйста, выберите бренд"),
-        ScrollingGroup(
-            Select(
-                id="Level_3",
-                items="lvl3",
-                item_id_getter=operator.itemgetter(1),
-                text=Format("{item[0]}"),
-                on_click=selected_level3,
-            ),
-            id="lvl3_group",
-            height=10,
-            width=1,
-            hide_on_single_page=True
-        ),
-        Button(Const("На главную"), id="to_main", on_click=to_main),
-        state=Catalog_levels.level_3,
-        getter=get_level_3,
-    ),
-    Window(
-        Const("Пожалуйста, выберите количество затяжек"),
-        ScrollingGroup(
-            Select(
-                id="Level_4",
-                items="lvl4",
-                item_id_getter=operator.itemgetter(1),
-                text=Format("{item[0]}"),
-                on_click=selected_level4,
-            ),
-            id="lvl4_group",
-            height=10,
-            width=1,
-            hide_on_single_page=True
-        ),
-        Button(Const("На главную"), id="to_main", on_click=to_main),
-        Back(Const("⬅ Назад")),
-        state=Catalog_levels.level_4,
-        getter=get_level_4,
-    ),
-    Window(
-        Const("Пожалуйста, выберите вкус"),
-        ScrollingGroup(
-            Select(
-                id="Level_5",
-                items="lvl5",
-                item_id_getter=operator.itemgetter(1),
-                text=Format("{item[0]}"),
-                on_click=to_item,
-            ),
-            id="lvl5_group",
-            height=10,
-            width=1,
-            hide_on_single_page=True
-        ),
-        Button(Const("На главную"), id="to_main", on_click=to_main),
-        Back(Const("⬅ Назад")),
-        state=Catalog_levels.level_5,
-        getter=get_level_5,
-    ),
+    *windows,
     Window(
         StaticMedia(
         path=Format('{image}'),
@@ -129,4 +93,63 @@ Catalog_lvl1 = Dialog(
     ),
 )
 
+"""Window(
+        Const("Пожалуйста, выберите бренд"),
+        ScrollingGroup(
+            Select(
+                id="Level_0",
+                items="lvl",
+                item_id_getter=operator.itemgetter(0),
+                text=Format("{item[0]}"),
+                on_click=selected_level3,
+            ),
+            id="lvl0_group",
+            height=10,
+            width=1,
+            hide_on_single_page=True
+        ),
+        Button(Const("На главную"), id="to_main", on_click=to_main),
+        state=Catalog_levels.level_3,
+        getter=get_level,
+    ),
+    Window(
+        Const("Пожалуйста, выберите количество затяжек"),
+        ScrollingGroup(
+            Select(
+                id="Level_1",
+                items="lvl",
+                item_id_getter=operator.itemgetter(0),
+                text=Format("{item[0]}"),
+                on_click=selected_level4,
+            ),
+            id="lvl1_group",
+            height=10,
+            width=1,
+            hide_on_single_page=True
+        ),
+        Button(Const("На главную"), id="to_main", on_click=to_main),
+        Back(Const("⬅ Назад")),
+        state=Catalog_levels.level_4,
+        getter=get_level,
+    ),
+    Window(
+        Const("Пожалуйста, выберите вкус"),
+        ScrollingGroup(
+            Select(
+                id="Level_5",
+                items="lvl5",
+                item_id_getter=operator.itemgetter(1),
+                text=Format("{item[0]}"),
+                on_click=to_item,
+            ),
+            id="lvl5_group",
+            height=10,
+            width=1,
+            hide_on_single_page=True
+        ),
+        Button(Const("На главную"), id="to_main", on_click=to_main),
+        Back(Const("⬅ Назад")),
+        state=Catalog_levels.level_5,
+        getter=get_level_5,
+    ),"""
 
