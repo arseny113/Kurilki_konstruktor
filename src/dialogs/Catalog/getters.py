@@ -1,29 +1,35 @@
 from src.database.models import async_session, Catalog
 # lvl2_base, lvl3_base, lvl4_base, lvl5_base
-from sqlalchemy import select
+from sqlalchemy import select, distinct, desc
 from src.utils.funcs import get_image_size, get_image_ratio
 from .states import Catalog_levels
 from aiogram_dialog import DialogManager
+
+from .states import Catalog_levels
 
 
 order = ['SeaBear', 'Air Stick', 'EPE']
 lvls_names = ['brand', 'puffs', 'flavor']
 previous_choices = []
 
+states = [Catalog_levels.level_0, Catalog_levels.level_1, Catalog_levels.level_2, Catalog_levels.level_3]
+
 #получение значений для 3 уровня
 async def get_level(dialog_manager: DialogManager, **middleware_data):
      async with async_session() as session:
-        choices = dialog_manager.current_context().dialog_data.get("level")
-        count_choices = len(choices) if choices else 0
-        expression = f'select(Catalog.{lvls_names[count_choices]})'
-        for lvl in range(count_choices):
-            if lvl == 0:
+        dialog_data = dialog_manager.current_context().dialog_data
+        level = states.index(dialog_manager.current_context().state)
+        expression = f'select(Catalog.{lvls_names[level]}, Catalog.id)'
+        for now_level in range(level):
+            if now_level == 0:
                 expression = expression + ".where("
-            expression = expression + f'Catalog.{lvls_names[lvl]} == "{choices[lvl]}", '
-            if count_choices == lvl + 1:
+            now_level_name = await session.scalar(eval(f"select(Catalog.{lvls_names[now_level]}).where(Catalog.id == {dialog_data[f'level{now_level}']})"))
+            expression = expression + f'Catalog.{lvls_names[now_level]} == "{now_level_name}", '
+            if level == now_level + 1:
                 expression = expression + ")"
-        db_main = set(await session.scalars(eval(expression)))
-        data = {f'lvl{count_choices}': [(item, await session.scalar(select(Catalog.id).where(eval(f"Catalog.{lvls_names[count_choices]}") == item))) for item in db_main],
+        db_main_query = eval(expression + f'.distinct(Catalog.{lvls_names[level]})')
+        db_main_result = await session.execute(db_main_query)
+        data = {f'lvl{level}': [(item[0], item[1]) for item in db_main_result.all()],
                 }
         return data
 

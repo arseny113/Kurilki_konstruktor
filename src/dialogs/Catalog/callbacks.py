@@ -18,15 +18,13 @@ async def selected_level(
     callback_query: CallbackQuery,
     widget: Select,
     dialog_manager: DialogManager,
-    choice: str,
+    item_id: str,
 ):
-    try:
-        dialog_manager.dialog_data["level"].append(choice)
-    except:
-        dialog_manager.dialog_data["level"] = [choice]
+    level = states.index(dialog_manager.current_context().state)
+    dialog_manager.dialog_data[f'level{level}'] = int(item_id)
     if not dialog_manager.dialog_data.get("user_id"):
         dialog_manager.dialog_data["user_id"] = callback_query.from_user.id
-    await dialog_manager.switch_to(states[len(dialog_manager.dialog_data["level"])])
+    await dialog_manager.switch_to(states[level + 1])
 
 #запись id для уровня 4
 """async def selected_level4(

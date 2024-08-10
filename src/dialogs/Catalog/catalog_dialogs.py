@@ -31,7 +31,7 @@ for window in range(count_levels):
                 Select(
                     id=f"Level_{window}",
                     items=f"lvl{window}",
-                    item_id_getter=operator.itemgetter(0),
+                    item_id_getter=operator.itemgetter(1),
                     text=Format("{item[0]}"),
                     on_click=selected_level,
                 ),
@@ -51,7 +51,7 @@ for window in range(count_levels):
                 Select(
                     id=f"Level_{window}",
                     items=f"lvl{window}",
-                    item_id_getter=operator.itemgetter(0),
+                    item_id_getter=operator.itemgetter(1),
                     text=Format("{item[0]}"),
                     on_click=selected_level,
                 ),
