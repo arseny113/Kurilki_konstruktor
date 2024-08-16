@@ -48,9 +48,8 @@ async def get_number(tg_id):
 
 async def get_orders(tg_id):
     async with async_session() as session:
-        query = select(Order).where(Order.tg_id == tg_id, Order.status == 'in_progress')
-        result = await session.execute(query)
-        return result.all()
+        orders = await session.scalars(select(Order).where(Order.tg_id == tg_id, Order.status == 'in_progress'))
+        return orders
 
 
 async def write_to_order(tg_id, product, quant):

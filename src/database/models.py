@@ -2,15 +2,26 @@ from sqlalchemy import BigInteger, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 from src.data.config import database_url
+from ConfigFromJsonToDict import config_data
 import pandas as pd
 import csv
 
 
 engine = create_async_engine(url=database_url, echo=True, pool_size=5, max_overflow=10)
-names = ['brand','puffs','flavor','image','volume','nicotine','heat_element','battery','connector','compound']
 async_session = async_sessionmaker(engine)
 
+levels_choice_count = int(config_data['texts']['catalog']['dialog']['levels_choice_count'])
 
+with open(r'src/database/DB_ver06.csv', encoding='UTF-8-sig') as file:
+    reader = csv.reader(file, delimiter=';')
+    header = list(next(reader))
+    column_names = header
+    all_products = []
+    for row in reader:
+        new_line = {k: v for k, v in zip(header, row)}
+        all_products.append(new_line)
+    df = pd.DataFrame(all_products)
+    lvl_names = column_names[1:levels_choice_count + 1]
 
 
 class Base(AsyncAttrs, DeclarativeBase):
@@ -30,18 +41,9 @@ class Catalog(Base):
     __tablename__ = 'catalog'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    for name in names:
+    for name in column_names[1:]:
         locals()[f"{name}"]: Mapped[str] = mapped_column(String(300), nullable=True)
-"""    brand: Mapped[str] = mapped_column(String(100), nullable=True)
-    puffs: Mapped[str] = mapped_column(String(100), nullable=True)
-    flavor: Mapped[str] = mapped_column(String(100), nullable=True)
-    image: Mapped[str] = mapped_column(String(200), nullable=True)
-    volume: Mapped[str] = mapped_column(String(200), nullable=True)
-    nicotine: Mapped[str] = mapped_column(String(200), nullable=True)
-    heat_element: Mapped[str] = mapped_column(String(200), nullable=True)
-    battery: Mapped[str] = mapped_column(String(200), nullable=True)
-    connector: Mapped[str] = mapped_column(String(200), nullable=True)
-    compound: Mapped[str] = mapped_column(String(300), nullable=True)"""
+
 
 class Order(Base):
     __tablename__ = 'orders'
@@ -58,30 +60,17 @@ async def async_main():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
-    with open(r'src/database/DB_ver05.csv', encoding='cp1251') as file:
-        reader = csv.reader(file, delimiter=';')
-        header = list(next(reader))
-        all_products = []
-        for row in reader:
-            new_line = {k: v for k, v in zip(header, row)}
-            all_products.append(new_line)
-        df = pd.DataFrame(all_products)
-        async with async_session() as session:
-            for index, row in df.iterrows():
-                record = Catalog(**{
-                    'id': int(row[0]),
-                    'brand': row[1],
-                    'puffs': row[2],
-                    'flavor': row[3],
-                    'image': row[4],
-                    'volume': row[5],
-                    'nicotine': row[6],
-                    'heat_element': row[7],
-                    'battery': row[8],
-                    'connector': row[9],
-                    'compound': row[10]
-                })
-                session.add(record)
+    dict_for_db = {}
+    async with async_session() as session:
+        for index, row in df.iterrows():
+            for i in range(len(column_names)):
+                if i == 0:
+                    dict_for_db[column_names[i]] = int(row[i])
+                else:
+                    dict_for_db[column_names[i]] = row[i]
+            record = Catalog(**dict_for_db)
 
-            await session.commit()
+            session.add(record)
+
+        await session.commit()
 

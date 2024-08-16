@@ -9,23 +9,33 @@ from aiogram_dialog import DialogManager
 import src.database.requests as rq
 import src.keyboards.default.reply as kb
 
+from ConfigFromJsonToDict import config_data
+
 account_router = Router()
 
+texts_account = config_data['texts']['account']
+string_pattern_orders = texts_account["orders_pattern_message"]
 
-@account_router.message(F.text == 'Личный кабинет')
+
+@account_router.message(Command(commands=texts_account['command']))
+@account_router.message(F.text == texts_account['reply_buttons'][0])
 async def to_personal_account(message: types.Message, state: FSMContext, dialog_manager: DialogManager):
     try:
         await dialog_manager.done()
     except:
         pass
-    await message.answer("Вы перешли в личный кабинет\nВыберете необходимую опцию", reply_markup=kb.account_kb)
+    await message.answer(texts_account['to_p_a_message'], reply_markup=kb.account_kb)
 
 
-@account_router.message(F.text == 'История заказов')
-async def to_personal_account(message: types.Message):
+@account_router.message(F.text == texts_account['reply_buttons'][1])
+async def history(message: types.Message):
+    order_message = texts_account['orders_start_message']
     orders = await rq.get_orders(message.from_user.id)
+    for order in orders:
+        prod_id = order.prod_id
+        product = await rq.get_product(prod_id)
+        order_message += eval(string_pattern_orders)
     if orders:
-        await message.answer("Вы заказывали:\n" + "\n".join([" ".join(await rq.get_products(order[0].prod_id)) + f" в количестве: {order[0].amount}" for order in orders]),
-                             reply_markup=kb.account_kb)
+        await message.answer(order_message, reply_markup=kb.account_kb)
     else:
-        await message.answer("Вы ещё ничего у нас не заказывали", reply_markup=kb.account_kb)
+        await message.answer(texts_account["history_none_message"], reply_markup=kb.account_kb)

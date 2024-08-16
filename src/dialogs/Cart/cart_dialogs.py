@@ -15,11 +15,12 @@ from .states import Cart_levels
 from .getters import get_products, get_item
 from .callbacks import to_main, selected_product, delete, increase, reduce, to_catalog
 from src.handlers.order_registration import sending_order
+from ConfigFromJsonToDict import config_data
 
+texts_cart_dialog_windows = config_data['texts']['cart']['dialog']['windows']
 
-Cart = Dialog(
-    Window(
-        Format("Ваша корзина"),
+products_window = Window(
+        Format(texts_cart_dialog_windows['cart_message']),
         ScrollingGroup(
             Select(
                 id="select",
@@ -33,33 +34,33 @@ Cart = Dialog(
             width=1,
             hide_on_single_page=True
         ),
-        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("Каталог"), id="to_catalog", on_click=to_catalog)),
-        Button(Const("Оформить заказ"), id="to_payment", on_click=sending_order),
+        Row(Button(Const(texts_cart_dialog_windows['to_main_button']), id="to_main", on_click=to_main),
+            Button(Const(texts_cart_dialog_windows['to_catalog_button']), id="to_catalog", on_click=to_catalog)),
+        Button(Const(texts_cart_dialog_windows['make_order_button']), id="to_payment", on_click=sending_order),
         state=Cart_levels.select_products,
         getter=get_products,
-    ),
-    Window(
+    )
+
+product_window = Window(
         StaticMedia(
         path=Format('{image}'),
         type=ContentType.PHOTO,
     ),
-        Format("Вы выбрали: {brand}\n"
-               "Кол-во затяжек: до {puffs}\n"
-               "Вкус: {flavor}\n"
-               "Объем жидкости: {volume} мл\n"
-               "Содержание никотина: {nicotine}\n"
-               "Нагревательных элеметов: {heat_element}\n"
-               "Батарея: {battery} мАч\n"
-               "Разъём для зарядки: {connector}\n"
-               "Состав: {compound}\n"
-                "Количество {quant}"
-               ),
-        Row(Button(Const("Удалить"), id="delete", on_click=delete), Button(Const("+"), id="increase", on_click=increase),
-            Button(Const("-"), id="reduce", on_click=reduce)),
-        Row(Button(Const("На главную"), id="to_main", on_click=to_main), Button(Const("Каталог"), id="to_catalog", on_click=to_catalog), Back(Const("⬅ Назад"))),
-        Button(Const("Оформить заказ"), id="to_payment", on_click=sending_order),
+        Format(texts_cart_dialog_windows['product_card_message']),
+        Row(Button(Const(texts_cart_dialog_windows['delete_button']), id="delete", on_click=delete),
+            Button(Const(texts_cart_dialog_windows['increase_button']), id="increase", on_click=increase),
+            Button(Const(texts_cart_dialog_windows['reduce_button']), id="reduce", on_click=reduce)),
+        Row(Button(Const(texts_cart_dialog_windows['to_main_button']), id="to_main", on_click=to_main),
+            Button(Const(texts_cart_dialog_windows['to_catalog_button']), id="to_catalog", on_click=to_catalog),
+            Back(Const(texts_cart_dialog_windows['back_button']))),
+        Button(Const(texts_cart_dialog_windows['make_order_button']), id="to_payment", on_click=sending_order),
         state=Cart_levels.product_card,
         getter=get_item,
-    ),
+    )
+
+
+Cart = Dialog(
+    products_window,
+             product_window,
 )
 

@@ -1,5 +1,5 @@
 from aiogram import types, Router, F
-from aiogram.filters import StateFilter, or_f
+from aiogram.filters import StateFilter, or_f, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state
 
@@ -13,6 +13,7 @@ settings_router = Router()
 
 
 @settings_router.message(F.text == 'Настройки')
+@settings_router.message(Command(commands='settings'))
 @settings_router.message(F.text == 'Назад', or_f(StateFilter(user_states.UserFSM.rewrite_name),
                                                  StateFilter(user_states.UserFSM.rewrite_phone),
                                                  )

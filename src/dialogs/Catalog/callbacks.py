@@ -4,16 +4,13 @@ from aiogram_dialog.widgets.kbd import Button, Select
 from .states import Catalog_levels
 from ..Cart.states import Cart_levels
 from ...database.requests import orm_add_to_cart
+from ConfigFromJsonToDict import config_data
 import src.keyboards.default.reply as kb
-"""from src.database.models import async_session, Catalog, lvl2_base, lvl3_base, lvl4_base, lvl5_base"""
-from sqlalchemy import select
-import src.database.requests as rq
-from aiogram.fsm.context import FSMContext
-import src.states.user as user_states
-from src.database.models import async_session
+from .states import states
 
-#запись id для уровня 3
-states = [Catalog_levels.level_0, Catalog_levels.level_1, Catalog_levels.level_2]
+texts_catalog_dialog_callbacks = config_data['texts']['catalog']['dialog']['callbacks']
+
+
 async def selected_level(
     callback_query: CallbackQuery,
     widget: Select,
@@ -21,57 +18,11 @@ async def selected_level(
     item_id: str,
 ):
     level = states.index(dialog_manager.current_context().state)
-    dialog_manager.dialog_data[f'level{level}'] = int(item_id)
     if not dialog_manager.dialog_data.get("user_id"):
         dialog_manager.dialog_data["user_id"] = callback_query.from_user.id
     await dialog_manager.switch_to(states[level + 1])
+    dialog_manager.dialog_data[f'level{level}'] = int(item_id)
 
-#запись id для уровня 4
-"""async def selected_level4(
-    callback_query: CallbackQuery,
-    widget: Select,
-    dialog_manager: DialogManager,
-    item_id: str,
-):
-    dialog_manager.dialog_data["level_4"] = item_id
-    await dialog_manager.switch_to(Catalog_levels.level_5)"""
-
-#запись id для уровня 5
-async def selected_level5(
-    callback_query: CallbackQuery,
-    widget: Select,
-    dialog_manager: DialogManager,
-    item_id: str,
-):
-    dialog_manager.dialog_data["level_5"] = item_id
-    dialog_manager.dialog_data["select_items"] = 'level_6'
-    await dialog_manager.switch_to(Catalog_levels.select_item)
-#callback data для 3 уровня для просмотра товаров
-async def selected_item3(
-    callback_query: CallbackQuery,
-    widget: Button,
-    dialog_manager: DialogManager,
-):
-    dialog_manager.dialog_data["select_items"] = 'level_3'
-    await dialog_manager.switch_to(Catalog_levels.select_item)
-
-#callback data для 4 уровня для просмотра товаров
-async def selected_item4(
-    callback_query: CallbackQuery,
-    widget: Button,
-    dialog_manager: DialogManager,
-):
-    dialog_manager.dialog_data["select_items"] = 'level_4'
-    await dialog_manager.switch_to(Catalog_levels.select_item)
-
-#callback data для 5 уровня для просмотра товаров
-async def selected_item5(
-    callback_query: CallbackQuery,
-    widget: Button,
-    dialog_manager: DialogManager,
-):
-    dialog_manager.dialog_data["select_items"] = 'level_5'
-    await dialog_manager.switch_to(Catalog_levels.select_item)
 
 #запись id товара и переход к карточке
 async def to_item(
@@ -80,24 +31,9 @@ async def to_item(
     dialog_manager: DialogManager,
     item_id: str,
 ):
-    dialog_manager.dialog_data["item_id"] = item_id
+    dialog_manager.dialog_data["item_id"] = int(item_id)
     dialog_manager.dialog_data["quant"] = 1
     await dialog_manager.switch_to(Catalog_levels.item)
-
-#кнопка для выхода из просмотра товаров
-async def back(
-    callback_query: CallbackQuery,
-    widget: Button,
-    dialog_manager: DialogManager,
-):
-    if dialog_manager.current_context().dialog_data.get('select_items') == 'level_3':
-        await dialog_manager.switch_to(Catalog_levels.level_2)
-    elif dialog_manager.current_context().dialog_data.get('select_items') == 'level_4':
-        await dialog_manager.switch_to(Catalog_levels.level_3)
-    elif dialog_manager.current_context().dialog_data.get('select_items') == 'level_5':
-        await dialog_manager.switch_to(Catalog_levels.level_4)
-    else:
-        await dialog_manager.switch_to(Catalog_levels.level_5)
 
 
 #добавление в корзину
@@ -106,22 +42,22 @@ async def to_cart(
     widget: Button,
     dialog_manager: DialogManager,
 ):
-    await orm_add_to_cart(tg_id=callback_query.from_user.id, prod_id=int(dialog_manager.current_context().dialog_data.get('item_id')), quant=dialog_manager.dialog_data["quant"])
-    await callback_query.answer("Товар добавлен в корзину")
-    await dialog_manager.switch_to(Catalog_levels.level_5)
+    await orm_add_to_cart(tg_id=callback_query.from_user.id, prod_id=dialog_manager.current_context().dialog_data.get('item_id'), quant=dialog_manager.dialog_data["quant"])
+    await callback_query.answer(texts_catalog_dialog_callbacks["go_to_cart_answer"])
+    await dialog_manager.switch_to(Catalog_levels.item)
 
 async def to_main(callback_query: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,):
     await dialog_manager.done()
-    await callback_query.message.answer('Приветствую 👋это чат-бот HotSmok! Готов оперативно принять у Вас заказ и ответить на Ваши вопросы!', reply_markup=kb.start_kb)
+    await callback_query.message.answer(texts_catalog_dialog_callbacks["to_main_message"], reply_markup=kb.start_kb)
 
 async def go_to_cart(
     callback_query: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,
 ):
-    await callback_query.answer('Корзина')
+    await callback_query.answer(texts_catalog_dialog_callbacks["go_to_cart_answer"])
     await dialog_manager.done()
 
     await dialog_manager.start(Cart_levels.select_products, data={'user_id': callback_query.from_user.id}, mode=StartMode.RESET_STACK)
@@ -141,7 +77,7 @@ async def decrement(
     if dialog_manager.dialog_data["quant"] > 1:
         dialog_manager.dialog_data["quant"] -= 1
     else:
-        await callback_query.answer('Нельзя уменьшить количество')
+        await callback_query.answer(texts_catalog_dialog_callbacks["cancel_decrement_answer"])
         dialog_manager.dialog_data["quant"] = 1
 
 async def quant(
@@ -149,4 +85,4 @@ async def quant(
     widget: Button,
     dialog_manager: DialogManager,
 ):
-    await callback_query.answer(f'Количество: {dialog_manager.dialog_data["quant"]}')
+    await callback_query.answer(f'{texts_catalog_dialog_callbacks['quant_button_answer']} {dialog_manager.dialog_data["quant"]}')

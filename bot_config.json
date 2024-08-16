@@ -1,0 +1,139 @@
+{
+    "texts": {
+        "account": {
+            "command": "lk",
+            "reply_buttons": ["Личный кабинет", "История заказов"],
+            "to_p_a_message": "Вы перешли в личный кабинет\nВыберете необходимую опцию",
+            "orders_start_message": "Вы заказали:\n",
+            "orders_pattern_message": " f'{product.brand} {product.puffs} {product.flavor} в количестве: {order.amount}'\n",
+            "history_none_message": "Вы ещё ничего у нас не заказывали"
+        },
+        "cart": {
+            "handler": {
+                "command": "cart",
+                "reply_button": "Корзина",
+                "callback_data": ["go_to_cart", "disagree"],
+                "empty": "Корзина пуста"
+            },
+            "dialog":{
+                "windows": {
+                    "cart_message": "Ваша корзина",
+                    "to_main_button": "На главную",
+                    "to_catalog_button": "Каталог",
+                    "make_order_button": "Оформить заказ",
+                    "product_card_message": "Вы выбрали: {brand}\nКол-во затяжек: {puffs}\nВкус: {flavor}\nОбъем жидкости: {volume}\nСодержание никотина: {nicotine}\nНагревательных элементов: {heat_element}\nБатарея: {battery}\nРазъем для зарядки: {connector}\nСостав : {compound}\nКоличество: {quant}",
+                    "delete_button": "Удалить",
+                    "increase_button": "+",
+                    "reduce_button": "-",
+                    "back_button": "⬅ Назад"
+                },
+                "getters": {
+                    "product_info": "f'{product.brand} {product.puffs} {product.flavor}'",
+                    "product_card_getter": ["brand", "puffs", "flavor", "volume", "nicotine", "heat_element", "battery", "connector", "compound"]
+                },
+                "callbacks": {
+                    "to_main_message": "Приветствую \uD83D\uDC4Bэто чат-бот HotSmok! Готов оперативно принять у Вас заказ и ответить на Ваши вопросы!",
+                    "empty": "Корзина пуста",
+                    "to_catalog_answer": "Каталог"
+                },
+
+
+                "next_page": "Вперед",
+                "back_page": "Назад",
+                "no_pages": "Больше страниц нет",
+                "first_page": "Это самая первая страница",
+                "deleted_item": "Вы удалили товар",
+                "out_item": "Вы убрали товар",
+                "added_item": "Вы добавили товар"
+                }
+
+            },
+        "catalog": {
+            "handler": {
+                "command": "catalog",
+                "reply_button": "Каталог",
+                "callback_data": "to_catalog"
+            },
+            "dialog": {
+                "levels_choice_count": "3",
+                "windows": {
+                    "level_0_message": "Выберете бренд",
+                    "level_1_message": "Выберете кол-во затяжек",
+                    "level_2_message": "Выберете вкус",
+                    "product_cart_message": "Вы выбрали: {brand}\nКол-во затяжек: {puffs}\nВкус: {flavor}\nОбъем жидкости: {volume}\nСодержание никотина: {nicotine}\nНагревательных элементов: {heat_element}\nБатарея: {battery}\nРазъем для зарядки: {connector}\nСостав : {compound}",
+                    "delete_button": "Удалить",
+                    "increase_button": "+",
+                    "decrement_button": "-",
+                    "to_main_button": "На главную",
+                    "back_button": "⬅ Назад",
+                    "quant_button": "Кол-во: {quant}",
+                    "to_cart_button": "В корзину"
+                },
+                "getters": {
+                    "product_card_getter": ["brand", "puffs", "flavor", "volume", "nicotine", "heat_element", "battery", "connector", "compound"]
+                },
+                "callbacks": {
+                    "product_in_cart_answer": "Товар добавлен в корзину",
+                    "go_to_cart_answer": "Корзина",
+                    "to_main_message": "Приветствую \uD83D\uDC4Bэто чат-бот HotSmok! Готов оперативно принять у Вас заказ и ответить на Ваши вопросы!",
+                    "cancel_decrement_answer": "Нельзя уменьшить количество",
+                    "quant_button_answer": "Количество: "
+                }
+            },
+
+            "product_card": {"Вы выбрали":  "brand",
+                             "Кол-во затяжек": "puffs",
+                             "Вкус": "flavor",
+                             "Объем жидкости":"volume",
+                             "Содержание никотина":"nicotine",
+                             "Нагревательных элементов":"heat_element",
+                             "Батарея":"battery",
+                             "Разъем для зарядки":"connector",
+                             "Состав":"compound"
+            }
+        },
+        "common": {
+            "command": "start",
+            "reply_button": "Главное меню",
+            "start_text": "Вас приветствует интернет магазин кондиционеров"
+        },
+        "help_cmd": {
+            "command": "help",
+            "reply_button": "Помощь",
+            "main_help_text": "Список команд:\n/catalog - Каталог\n/cart — Корзина\n/history — История заказов\n/settings — Настройки\n/help — Справка\n/start — Главное меню\n/delivery — Информация о доставке\n/news — Новости\n\nОтветы на часто задаваемые вопросы:"
+        },
+        "orders": {
+            "command": "orders",
+            "reply_button": "Заказы"
+        },
+        "payment": {
+
+        },
+        "order_registration": {
+
+        },
+        "selection": {
+
+        },
+        "settings": {
+
+        },
+        "faq": {
+
+        },
+    "routers": [
+        "router",
+        "help_router",
+        "selection",
+        "cart_router",
+        "selection_router",
+        "settings_router",
+        "registration_router",
+        "order_router",
+        "payment_router"
+    ],
+    "service_settings": {
+        "bot_token": "DNiADbfASJfEUEKBJEFEESsadffe",
+        "support_id": "642500259"
+    }
+}}
