@@ -8,3 +8,4 @@ class UserFSM(StatesGroup):
     write_phone = State()
     rewrite_name = State()
     rewrite_phone = State()
+    help_menu = State()

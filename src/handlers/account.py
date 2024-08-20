@@ -14,27 +14,35 @@ from ConfigFromJsonToDict import config_data
 account_router = Router()
 
 texts_account = config_data['texts']['account']
-string_pattern_orders = texts_account["orders_pattern_message"]
+
+start_handler_button = eval(config_data['start_handler_button'])
+
+command = texts_account['command']
+
+reply_buttons = config_data['texts']['account_kb']['buttons']
+
+answer_messages = texts_account['answer_messages']
 
 
-@account_router.message(Command(commands=texts_account['command']))
-@account_router.message(F.text == texts_account['reply_buttons'][0])
+
+@account_router.message(Command(commands=command))
+@account_router.message(F.text == start_handler_button)
 async def to_personal_account(message: types.Message, state: FSMContext, dialog_manager: DialogManager):
     try:
         await dialog_manager.done()
     except:
         pass
-    await message.answer(texts_account['to_p_a_message'], reply_markup=kb.account_kb)
+    await message.answer(answer_messages['to_personal_account_message'], reply_markup=kb.account_kb)
 
 
-@account_router.message(F.text == texts_account['reply_buttons'][1])
+@account_router.message(F.text == reply_buttons['history'])
 async def history(message: types.Message):
-    order_message = texts_account['orders_start_message']
+    order_message = answer_messages['history_start_message']
     orders = await rq.get_orders(message.from_user.id)
     for order in orders:
         prod_id = order.prod_id
         product = await rq.get_product(prod_id)
-        order_message += eval(string_pattern_orders)
+        order_message += eval(answer_messages['history_pattern_message'])
     if orders:
         await message.answer(order_message, reply_markup=kb.account_kb)
     else:

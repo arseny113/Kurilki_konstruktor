@@ -32,3 +32,8 @@ questions_kb = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Как сде
                                              [KeyboardButton(text='Какие бренды поставляет наша компания?')],
                                              [KeyboardButton(text='Главное меню')]
                                              ], resize_keyboard=True, one_time_keyboard=True)
+
+help_kb = ReplyKeyboardMarkup(keyboard=[
+    [KeyboardButton(text='Позвонить'), KeyboardButton(text='Написать')],
+    [KeyboardButton(text='Главное меню')],
+], resize_keyboard=True, one_time_keyboard=True, input_field_placeholder='Выберете необходимую опцию')

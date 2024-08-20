@@ -12,7 +12,7 @@ registration_router = Router()
 
 
 async def start_registration_name(message: types.Message, state: FSMContext):
-    await message.answer('Отлично!\nВы у нас первый раз?\nДавайте заполним некоторые данные\nВведите своё ФИО:')
+    await message.answer('Введите своё ФИО:')
     await state.set_state(user_states.UserFSM.write_name)
 
 

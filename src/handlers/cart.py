@@ -13,21 +13,29 @@ cart_router = Router()
 
 texts_cart_handler = config_data['texts']['cart']['handler']
 
+command = texts_cart_handler['command']
+
+reply_buttons = texts_cart_handler['reply_buttons']
+
+answer_messages = texts_cart_handler['answer_messages']
+
+callback_data = texts_cart_handler['callback_data']
+
 # корзина
-@cart_router.message(Command(commands=texts_cart_handler['command']))
-@cart_router.message(F.text == texts_cart_handler['reply_button'])
+@cart_router.message(Command(commands=command))
+@cart_router.message(F.text == reply_buttons['get_carts'])
 async def get_carts(message: types.Message, dialog_manager: DialogManager):
     try:
         await dialog_manager.done()
     except:
         pass
     if await rq.orm_get_user_carts(message.from_user.id) == []:
-        await message.answer(texts_cart_handler['empty'], reply_markup=kb.start_kb)
+        await message.answer(answer_messages['empty'], reply_markup=kb.start_kb)
     else:
         await dialog_manager.start(Cart_levels.select_products, data={'user_id': message.from_user.id}, mode=StartMode.RESET_STACK)
 
-@cart_router.callback_query(F.data == texts_cart_handler['callback_data'][0])
-@cart_router.callback_query(F.data == texts_cart_handler['callback_data'][1])
+@cart_router.callback_query(F.data == callback_data['get_carts_call_1'])
+@cart_router.callback_query(F.data == callback_data['get_carts_call_2'])
 async def get_carts_call(callback: types.CallbackQuery, dialog_manager: DialogManager):
     try:
         await dialog_manager.done()

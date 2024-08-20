@@ -43,7 +43,7 @@ async def to_cart(
     dialog_manager: DialogManager,
 ):
     await orm_add_to_cart(tg_id=callback_query.from_user.id, prod_id=dialog_manager.current_context().dialog_data.get('item_id'), quant=dialog_manager.dialog_data["quant"])
-    await callback_query.answer(texts_catalog_dialog_callbacks["go_to_cart_answer"])
+    await callback_query.answer(texts_catalog_dialog_callbacks["product_in_cart_answer"])
     await dialog_manager.switch_to(Catalog_levels.item)
 
 async def to_main(callback_query: CallbackQuery,
@@ -85,4 +85,4 @@ async def quant(
     widget: Button,
     dialog_manager: DialogManager,
 ):
-    await callback_query.answer(f'{texts_catalog_dialog_callbacks['quant_button_answer']} {dialog_manager.dialog_data["quant"]}')
+    await callback_query.answer(f'{texts_catalog_dialog_callbacks["quant_button_answer"]} {dialog_manager.dialog_data["quant"]}')

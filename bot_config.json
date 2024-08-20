@@ -1,19 +1,27 @@
 {
     "texts": {
         "account": {
-            "command": "lk",
-            "reply_buttons": ["Личный кабинет", "История заказов"],
-            "to_p_a_message": "Вы перешли в личный кабинет\nВыберете необходимую опцию",
-            "orders_start_message": "Вы заказали:\n",
-            "orders_pattern_message": " f'{product.brand} {product.puffs} {product.flavor} в количестве: {order.amount}'\n",
-            "history_none_message": "Вы ещё ничего у нас не заказывали"
+            "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['account']",
+            "command":  "lk",
+            "answer_messages": {
+                "to_personal_account_message": "Вы перешли в личный кабинет\nВыберете необходимую опцию",
+                "history_start_message": "Вы заказали:\n",
+                "history_pattern_message": " f'{product.brand} {product.puffs} {product.flavor} в количестве: {order.amount}'\n",
+                "history_none_message": "Вы ещё ничего у нас не заказывали"
+            }
         },
         "cart": {
             "handler": {
                 "command": "cart",
-                "reply_button": "Корзина",
-                "callback_data": ["go_to_cart", "disagree"],
-                "empty": "Корзина пуста"
+                "reply_buttons": {
+                    "get_carts": "Корзина"
+                },
+                "callback_data": {
+                    "get_carts_call_1": "go_to_cart",
+                    "get_carts_call_2": "disagree"},
+                "answer_messages": {
+                    "empty": "Корзина пуста"
+                }
             },
             "dialog":{
                 "windows": {
@@ -51,8 +59,11 @@
         "catalog": {
             "handler": {
                 "command": "catalog",
-                "reply_button": "Каталог",
-                "callback_data": "to_catalog"
+                "reply_buttons":{
+                    "catalog_lvl1": "Каталог"
+                },
+                "callback_data": {
+                    "catalog_lvl1_answ": "to_catalog"}
             },
             "dialog": {
                 "levels_choice_count": "3",
@@ -79,32 +90,31 @@
                     "cancel_decrement_answer": "Нельзя уменьшить количество",
                     "quant_button_answer": "Количество: "
                 }
-            },
-
-            "product_card": {"Вы выбрали":  "brand",
-                             "Кол-во затяжек": "puffs",
-                             "Вкус": "flavor",
-                             "Объем жидкости":"volume",
-                             "Содержание никотина":"nicotine",
-                             "Нагревательных элементов":"heat_element",
-                             "Батарея":"battery",
-                             "Разъем для зарядки":"connector",
-                             "Состав":"compound"
             }
         },
         "common": {
-            "command": "start",
-            "reply_button": "Главное меню",
-            "start_text": "Вас приветствует интернет магазин кондиционеров"
+            "start_handler_button": "Главное меню",
+            "start_handler_data": "to_main",
+            "answer_messages": {
+                "start_text_registered_answer": "Приветствую \uD83D\uDC4Bэто чат-бот HotSmok! Готов оперативно принять у Вас заказ и ответить на Ваши вопросы!",
+                "start_text_unregistered_answer": "Здравствуйте! Зарегистрируйтесь пожалуйста"
+            },
+            "callback_data": {
+                "registration_apply_data": "yes",
+                "start_from_inline_data": "to_main"
+                }
+
         },
         "help_cmd": {
+            "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['help']",
             "command": "help",
-            "reply_button": "Помощь",
-            "main_help_text": "Список команд:\n/catalog - Каталог\n/cart — Корзина\n/history — История заказов\n/settings — Настройки\n/help — Справка\n/start — Главное меню\n/delivery — Информация о доставке\n/news — Новости\n\nОтветы на часто задаваемые вопросы:"
-        },
-        "orders": {
-            "command": "orders",
-            "reply_button": "Заказы"
+            "answer_messages": {
+                "main_help_text": "Список команд:\n/catalog - Каталог\n/cart — Корзина\n/lk — Личный кабинет\n/settings — Настройки\n/help — Справка\n/start — Главное меню\n",
+                "call_text_answer":"Телефон горячей линии: +7xxxxxxxxxx",
+                "write_text_answer":"Напишите ваше сообщение:",
+                "message_to_support_arrived": "Ваше сообщение отправлено",
+                "to_support_message": "f'Новое сообщение от пользователя @{message.from_user.username}: {message.text}'"
+            }
         },
         "payment": {
 
@@ -116,11 +126,139 @@
 
         },
         "settings": {
+            "start_handler_button": "config_data['texts']['keyboards']['reply']['account_kb']['buttons']['settings']",
+            "command": "settings",
+            "answer_messages": {
+                "settings_setup": "Меню настроек",
+                "setting_name": "f'Ваше ФИО: {name}\nВведите новое значение'",
+                "setting_phone": "f'Ваш номер: {phone}\nВведите новое значение в формате 7xxxxxxxxxx'",
+                "rename": "Имя успешно изменено",
+                "rephone": "Номер успешно изменен"
+            }
 
         },
         "faq": {
+            "start_handler_button":  "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['faq']",
+            "command": "faq",
+            "reply_buttons": {
+                "to_faq": "Вопросы и ответы",
+                "to_general_questions" : "Общие вопросы",
+                "to_contacts": "Наши контакты",
+                "how_to_order": "Как сделать заказ?",
+                "brands": "Какие бренды поставляет наша компания?"
+            },
+            "answer_messages": {
+                "to_faq": "Вы перешли в раздел с вопросами и ответами\nВыберете необходимую опцию",
+                "to_general_questions": "Выберете интересующий вас вопрос",
+                "to_contacts": "Менеджер: @hotsmok_cn_7; +7 981 045 55 10\nОфис: г. Санкт-Петербург, 18 линия В. О., д. 29, лит. И, офис 513\nСоц. сети:\n- Telegram: https://t.me/hotsmok_cn\n- VK: https://vk.com/hotsmok_cn",
+                "how_to_order": "Телеграмм: @hotsmok_cn_7\nПожалуйста, направьте Ваш вопрос нашему менеджеру. Мы ответим Вам в течение 24 часов.",
+                "brands": "SEABEAR:\nДанный бренд высококачественных электронных сигарет сочетает в себе минималистичный дизайн и концепцию защиты окружающей среды.\nPUFF:\nПроводит постоянные исследования различных форм парения, стремится добиться идеального баланса между пользой для здоровья и ярким вкусом.\nEPE:\nявляется одним из лидеров в отрасли, который проводит исследования технологий производства электронных сигарет, предоставляя потребителю широкий выбор устройств для парения.\nAIRSTICK:\nКлиент - главный приоритет, поэтому бренд старается произвести товар, превосходящий самые смелые ожидания потребителя.\nCAMOBAR:\nПродукция данного бренда является воплощением технологий и искусства, удовлетворяя стремления потребителя к лучшему качеству жизни.\nVAPGO BAR:\nУделяет особое внимание контролю над производственным процессом для обеспечения безопасности и эффективности каждого устройства."
+            }
 
         },
+        "keyboards":{
+            "reply": {
+                "start_kb": {
+                    "format": ["2", "2", "1"],
+                    "buttons":{
+                        "catalog": "Каталог",
+                        "cart": "Корзина",
+                        "account": "Личный кабинет",
+                        "faq": "Вопросы и ответы",
+                        "help": "Помощь"
+                    },
+                    "parameters":{
+                        "resize_keyboard": "True",
+                        "input_field_placeholder": "Выберете необходимую опцию"
+                    }
+                },
+                "account_kb": {
+                    "format": ["1", "1", "1"],
+                    "buttons": {
+                        "settings": "Настройки",
+                        "history": "История заказов",
+                        "main_menu": "Главное меню"
+                    },
+                    "parameters": {
+                        "resize_keyboard": "True",
+                        "input_field_placeholder": "Выберете необходимую опцию"
+                    }
+                },
+                "back_kb": {
+                    "format": ["1"],
+                    "buttons": {
+                        "back": "Назад"
+                    },
+                    "parameters": {
+                        "resize_keyboard": "True",
+                        "one_time_keyboard": "True"
+                    }
+                },
+                "settings_kb": {
+                    "format": ["2", "1"],
+                    "buttons": {
+                        "setting_name": "Имя",
+                        "setting_phone": "Номер",
+                        "main_menu": "Главное меню"
+                    },
+                    "parameters": {
+                        "resize_keyboard": "True",
+                        "one_time_keyboard": "True"
+                    }
+                },
+                "send_contact_kb": {
+                    "format": ["1"],
+                    "buttons": {
+                        "send_contact": "Отправить свой контакт",
+                        "button_parameters": {
+                            "request_contact": "True"
+                        }
+                    },
+                    "parameters": {
+                       "resize_keyboard": "True",
+                        "one_time_keyboard": "True"
+                    }
+                },
+                "faq_kb": {
+                    "format": ["1", "1", "1"],
+                    "buttons": {
+                        "general_questions": "Общие вопросы",
+                        "contacts": "Наши контакты",
+                        "main_menu": "Главное меню"
+                    },
+                    "parameters": {
+                        "resize_keyboard": "True",
+                        "one_time_keyboard": "True"
+                    }
+                },
+                "questions_kb": {
+                    "format": ["1", "1", "1"],
+                    "buttons": {
+                        "how_to_order": "Как сделать заказ?",
+                        "brands": "Какие бренды поставляет наша компания?",
+                        "main_menu": "Главное меню"
+                    },
+                    "parameters": {
+                        "resize_keyboard": "True",
+                        "one_time_keyboard": "True"
+                    }
+                },
+                "help_kb": {
+                    "format": ["2", "1"],
+                    "buttons": {
+                        "call": "Позвонить",
+                        "write": "Написать",
+                        "main_menu": "Главное меню"
+                    },
+                    "parameters": {
+                        "resize_keyboard": "True",
+                        "one_time_keyboard": "True",
+                        "input_field_placeholder": "Выберете необходимую опцию"
+                    }
+                }
+            }
+        }
+    },
     "routers": [
         "router",
         "help_router",
@@ -136,4 +274,5 @@
         "bot_token": "DNiADbfASJfEUEKBJEFEESsadffe",
         "support_id": "642500259"
     }
-}}
+}
+

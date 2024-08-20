@@ -6,18 +6,24 @@ from aiogram_dialog import DialogManager, StartMode
 
 catalog_router = Router()
 
-from src.dialogs.Catalog.states import Catalog_levels, states
+from src.dialogs.Catalog.states import states
 
 from ConfigFromJsonToDict import config_data
 
 texts_catalog_handler = config_data['texts']['catalog']['handler']
 
-@catalog_router.message(Command(commands=texts_catalog_handler['command']))
-@catalog_router.message(F.text == texts_catalog_handler['reply_button'])
-async def catalog_lvl1(message: types.Message, dialog_manager: DialogManager):
-    await dialog_manager.start(Catalog_levels.level_0, mode=StartMode.RESET_STACK)
+command = texts_catalog_handler['command']
 
-@catalog_router.callback_query(F.data == texts_catalog_handler['callback_data'])
+reply_buttons = texts_catalog_handler['reply_buttons']
+
+callback_data = texts_catalog_handler['callback_data']
+
+@catalog_router.message(Command(commands=command))
+@catalog_router.message(F.text == reply_buttons['catalog_lvl1'])
+async def catalog_lvl1(message: types.Message, dialog_manager: DialogManager):
+    await dialog_manager.start(states[0], mode=StartMode.RESET_STACK)
+
+@catalog_router.callback_query(F.data == callback_data['catalog_lvl1_answ'])
 async def catalog_lvl1_answ(callback: types.CallbackQuery, dialog_manager: DialogManager):
     await callback.message.delete()
-    await dialog_manager.start(Catalog_levels.level_0, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(states[0], mode=StartMode.RESET_STACK)
