@@ -105,7 +105,7 @@ product_card_window = Window(
         getter=get_item,
     )
 
-Catalog_lvl1 = Dialog(
+Catalog = Dialog(
              *level_windows,
     product_card_window,
 )

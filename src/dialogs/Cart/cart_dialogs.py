@@ -14,7 +14,7 @@ import operator
 from .states import Cart_levels
 from .getters import get_products, get_item
 from .callbacks import to_main, selected_product, delete, increase, reduce, to_catalog
-from src.handlers.order_registration import sending_order
+from src.handlers.order import sending_order
 from ConfigFromJsonToDict import config_data
 
 texts_cart_dialog_windows = config_data['texts']['cart']['dialog']['windows']

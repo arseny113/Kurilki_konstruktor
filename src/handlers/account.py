@@ -15,11 +15,11 @@ account_router = Router()
 
 texts_account = config_data['texts']['account']
 
-start_handler_button = eval(config_data['start_handler_button'])
+start_handler_button = eval(texts_account['start_handler_button'])
 
 command = texts_account['command']
 
-reply_buttons = config_data['texts']['account_kb']['buttons']
+reply_buttons = config_data['texts']['keyboards']['reply']['account_kb']['buttons']
 
 answer_messages = texts_account['answer_messages']
 

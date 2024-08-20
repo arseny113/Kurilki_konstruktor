@@ -24,6 +24,8 @@ start_handler_data = texts_common['start_handler_data']
 
 answer_messages = texts_common['answer_messages']
 
+callback_data = texts_common['callback_data']
+
 @router.message(CommandStart(), ~or_f(StateFilter(user_states.UserFSM.write_name),
                                       StateFilter(user_states.UserFSM.write_phone),
                                       StateFilter(user_states.UserFSM.rewrite_name),

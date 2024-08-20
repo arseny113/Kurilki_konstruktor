@@ -2,7 +2,7 @@
     "texts": {
         "account": {
             "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['account']",
-            "command":  "lk",
+            "command":  "account",
             "answer_messages": {
                 "to_personal_account_message": "Вы перешли в личный кабинет\nВыберете необходимую опцию",
                 "history_start_message": "Вы заказали:\n",
@@ -12,10 +12,8 @@
         },
         "cart": {
             "handler": {
+                "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['cart']",
                 "command": "cart",
-                "reply_buttons": {
-                    "get_carts": "Корзина"
-                },
                 "callback_data": {
                     "get_carts_call_1": "go_to_cart",
                     "get_carts_call_2": "disagree"},
@@ -58,12 +56,10 @@
             },
         "catalog": {
             "handler": {
+                "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['catalog']",
                 "command": "catalog",
-                "reply_buttons":{
-                    "catalog_lvl1": "Каталог"
-                },
                 "callback_data": {
-                    "catalog_lvl1_answ": "to_catalog"}
+                    "catalog_answ": "to_catalog"}
             },
             "dialog": {
                 "levels_choice_count": "3",
@@ -100,10 +96,16 @@
                 "start_text_unregistered_answer": "Здравствуйте! Зарегистрируйтесь пожалуйста"
             },
             "callback_data": {
-                "registration_apply_data": "yes",
-                "start_from_inline_data": "to_main"
+                "registration_apply_data": "yes"
                 }
 
+        },
+        "registration": {
+            "answer_messages":{
+                "start_registration_name": "Введите своё ФИО:",
+                "registration_name": "Отправьте свой номер телефона",
+                "registration_phone": "Регистрация прошла успешно!"
+            }
         },
         "help_cmd": {
             "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['help']",
@@ -119,8 +121,13 @@
         "payment": {
 
         },
-        "order_registration": {
-
+        "order": {
+            "start_handler_data": "continue",
+            "product_string_pattern": "f'{product['product'].brand} {product['product'].puffs} {product['product'].flavor} кол-во: {product['amount']} шт.'",
+            "answer_messages": {
+                "answer_to_manager": "Новый заказ от пользователя @{username} на имя: {name}\nНомер телефона: {phone_number}\n",
+                "answer_to_buyer": "Ваш заказ обработан и передан менеджеру, ожидайте дальнейшей связи"
+            }
         },
         "selection": {
 
@@ -232,11 +239,12 @@
                     }
                 },
                 "questions_kb": {
-                    "format": ["1", "1", "1"],
+                    "format": ["1", "1", "1", "1"],
                     "buttons": {
                         "how_to_order": "Как сделать заказ?",
                         "brands": "Какие бренды поставляет наша компания?",
-                        "main_menu": "Главное меню"
+                        "main_menu": "Главное меню",
+                        "back": "Назад"
                     },
                     "parameters": {
                         "resize_keyboard": "True",

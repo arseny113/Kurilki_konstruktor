@@ -14,16 +14,16 @@ texts_catalog_handler = config_data['texts']['catalog']['handler']
 
 command = texts_catalog_handler['command']
 
-reply_buttons = texts_catalog_handler['reply_buttons']
+start_handler_button = eval(texts_catalog_handler['start_handler_button'])
 
 callback_data = texts_catalog_handler['callback_data']
 
 @catalog_router.message(Command(commands=command))
-@catalog_router.message(F.text == reply_buttons['catalog_lvl1'])
-async def catalog_lvl1(message: types.Message, dialog_manager: DialogManager):
+@catalog_router.message(F.text == start_handler_button)
+async def catalog(message: types.Message, dialog_manager: DialogManager):
     await dialog_manager.start(states[0], mode=StartMode.RESET_STACK)
 
-@catalog_router.callback_query(F.data == callback_data['catalog_lvl1_answ'])
-async def catalog_lvl1_answ(callback: types.CallbackQuery, dialog_manager: DialogManager):
+@catalog_router.callback_query(F.data == callback_data['catalog_answ'])
+async def catalog_answ(callback: types.CallbackQuery, dialog_manager: DialogManager):
     await callback.message.delete()
     await dialog_manager.start(states[0], mode=StartMode.RESET_STACK)

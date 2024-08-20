@@ -19,7 +19,7 @@ start_handler_button = eval(texts_settings['start_handler_button'])
 
 back_start_handler_button = config_data['texts']['keyboards']['reply']['back_kb']['buttons']
 
-reply_buttons = config_data['texts']['keyboards']['reply']['settings']['buttons']
+reply_buttons = config_data['texts']['keyboards']['reply']['settings_kb']['buttons']
 
 answer_messages = texts_settings['answer_messages']
 

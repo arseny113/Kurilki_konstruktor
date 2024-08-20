@@ -15,7 +15,7 @@ texts_cart_handler = config_data['texts']['cart']['handler']
 
 command = texts_cart_handler['command']
 
-reply_buttons = texts_cart_handler['reply_buttons']
+start_handler_button = eval(texts_cart_handler['start_handler_button'])
 
 answer_messages = texts_cart_handler['answer_messages']
 
@@ -23,7 +23,7 @@ callback_data = texts_cart_handler['callback_data']
 
 # корзина
 @cart_router.message(Command(commands=command))
-@cart_router.message(F.text == reply_buttons['get_carts'])
+@cart_router.message(F.text == start_handler_button)
 async def get_carts(message: types.Message, dialog_manager: DialogManager):
     try:
         await dialog_manager.done()

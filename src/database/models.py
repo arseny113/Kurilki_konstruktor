@@ -45,6 +45,7 @@ class Catalog(Base):
         locals()[f"{name}"]: Mapped[str] = mapped_column(String(300), nullable=True)
 
 
+
 class Order(Base):
     __tablename__ = 'orders'
 
