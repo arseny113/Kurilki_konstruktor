@@ -29,13 +29,15 @@ async def sending_order(callback: types.CallbackQuery, widget: Button, dialog_ma
     except:
         pass
     await callback.message.delete()
-    products = [{'product': await rq.get_product(order.prod_id), 'amount': order.amount} for order in
+    products = [(await rq.get_product(order.prod_id), order.amount) for order in
                                       await rq.orm_get_user_carts(callback.from_user.id)]
     product_strings = [eval(texts_order['product_string_pattern']) for product in products]
     username = callback.from_user.username
     name = await rq.get_name(callback.from_user.id)
     phone_number = await rq.get_number(callback.from_user.id)
-    manager_message = eval(answer_messages['answer_to_manager'])
+    manager_message = ''
+    for string in answer_messages['answer_to_manager']:
+        manager_message += eval(string) + '\n'
     await bot.send_message(MANAGER_ID,
                            manager_message +
                            "\n".join([string for string in product_strings]),)

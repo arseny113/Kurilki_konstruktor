@@ -17,7 +17,7 @@ texts_faq = config_data['texts']['faq']
 
 command = texts_faq['command']
 
-start_handler_button = texts_faq['start_handler_button']
+start_handler_button = eval(texts_faq['start_handler_button'])
 
 reply_buttons_faq = config_data['texts']['keyboards']['reply']['faq_kb']['buttons']
 
@@ -28,7 +28,7 @@ start_back_handler_button = reply_buttons_questions['back']
 answer_messages = texts_faq['answer_messages']
 
 @faq_router.message(F.text == start_handler_button)
-#@faq_router.message(F.text == start_back_handler_button)
+@faq_router.message(F.text == start_back_handler_button)
 async def faq(message: types.Message, state: FSMContext, dialog_manager: DialogManager):
     try:
         await dialog_manager.done()

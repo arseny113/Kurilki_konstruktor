@@ -123,9 +123,9 @@
         },
         "order": {
             "start_handler_data": "continue",
-            "product_string_pattern": "f'{product['product'].brand} {product['product'].puffs} {product['product'].flavor} кол-во: {product['amount']} шт.'",
+            "product_string_pattern": "f'{product[0].brand} {product[0].puffs} {product[0].flavor} кол-во: {product[1]} шт.'",
             "answer_messages": {
-                "answer_to_manager": "Новый заказ от пользователя @{username} на имя: {name}\nНомер телефона: {phone_number}\n",
+                "answer_to_manager": ["f'Новый заказ от пользователя @{username} на имя: {name}'", "f'Номер телефона: {phone_number}'"],
                 "answer_to_buyer": "Ваш заказ обработан и передан менеджеру, ожидайте дальнейшей связи"
             }
         },
@@ -217,7 +217,7 @@
                     "format": ["1"],
                     "buttons": {
                         "send_contact": "Отправить свой контакт",
-                        "button_parameters": {
+                        "send_contact_parameters": {
                             "request_contact": "True"
                         }
                     },
