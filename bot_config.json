@@ -3,6 +3,7 @@
         "account": {
             "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['account']",
             "command":  "account",
+            "command_description": "Личный кабинет",
             "answer_messages": {
                 "to_personal_account_message": "Вы перешли в личный кабинет\nВыберете необходимую опцию",
                 "history_start_message": "Вы заказали:\n",
@@ -14,6 +15,7 @@
             "handler": {
                 "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['cart']",
                 "command": "cart",
+                "command_description": "Корзина",
                 "callback_data": {
                     "get_carts_call_1": "go_to_cart",
                     "get_carts_call_2": "disagree"},
@@ -58,6 +60,7 @@
             "handler": {
                 "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['catalog']",
                 "command": "catalog",
+                "command_description": "Каталог",
                 "callback_data": {
                     "catalog_answ": "to_catalog"}
             },
@@ -89,6 +92,8 @@
             }
         },
         "common": {
+            "command": "start",
+            "command_description": "Главное меню",
             "start_handler_button": "Главное меню",
             "start_handler_data": "to_main",
             "answer_messages": {
@@ -110,6 +115,7 @@
         "help_cmd": {
             "start_handler_button": "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['help']",
             "command": "help",
+            "command_description": "Помощь",
             "answer_messages": {
                 "main_help_text": "Список команд:\n/catalog - Каталог\n/cart — Корзина\n/lk — Личный кабинет\n/settings — Настройки\n/help — Справка\n/start — Главное меню\n",
                 "call_text_answer":"Телефон горячей линии: +7xxxxxxxxxx",
@@ -135,10 +141,11 @@
         "settings": {
             "start_handler_button": "config_data['texts']['keyboards']['reply']['account_kb']['buttons']['settings']",
             "command": "settings",
+            "command_description": "Настройки",
             "answer_messages": {
                 "settings_setup": "Меню настроек",
-                "setting_name": "f'Ваше ФИО: {name}\nВведите новое значение'",
-                "setting_phone": "f'Ваш номер: {phone}\nВведите новое значение в формате 7xxxxxxxxxx'",
+                "setting_name": ["f'Ваше ФИО: {name}'", "f'Введите новое значение'"],
+                "setting_phone": ["f'Ваш номер: {phone}'", "f'Введите новое значение в формате 7xxxxxxxxxx'"],
                 "rename": "Имя успешно изменено",
                 "rephone": "Номер успешно изменен"
             }
@@ -147,6 +154,7 @@
         "faq": {
             "start_handler_button":  "config_data['texts']['keyboards']['reply']['start_kb']['buttons']['faq']",
             "command": "faq",
+            "command_description": "Вопросы и ответы",
             "reply_buttons": {
                 "to_faq": "Вопросы и ответы",
                 "to_general_questions" : "Общие вопросы",
@@ -277,6 +285,15 @@
         "registration_router",
         "order_router",
         "payment_router"
+    ],
+    "commands": [
+        "start",
+        "cart",
+        "catalog",
+        "account",
+        "help_cmd",
+        "settings",
+        "faq"
     ],
     "service_settings": {
         "bot_token": "DNiADbfASJfEUEKBJEFEESsadffe",

@@ -44,14 +44,20 @@ async def settings_setup(message: types.Message, state: FSMContext, dialog_manag
 @settings_router.message(F.text == reply_buttons['setting_name'])
 async def setting_name(message: types.Message, state: FSMContext):
     name = await rq.get_name(tg_id=message.from_user.id)
-    await message.answer(eval(answer_messages['setting_name']), reply_markup=kb.back_kb)
+    setting_name_answer = ''
+    for string in answer_messages['setting_name']:
+        setting_name_answer += eval(string) + '\n'
+    await message.answer(setting_name_answer, reply_markup=kb.back_kb)
     await state.set_state(user_states.UserFSM.rewrite_name)
 
 
 @settings_router.message(F.text == reply_buttons['setting_phone'])
 async def setting_phone(message: types.Message, state: FSMContext):
     phone = await rq.get_number(tg_id=message.from_user.id)
-    await message.answer(eval(answer_messages['setting_phone']), reply_markup=kb.back_kb)
+    setting_phone_answer = ''
+    for string in answer_messages['setting_phone']:
+        setting_phone_answer += eval(string) + '\n'
+    await message.answer(setting_phone_answer, reply_markup=kb.back_kb)
     await state.set_state(user_states.UserFSM.rewrite_phone)
 
 

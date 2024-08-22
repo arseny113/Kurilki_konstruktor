@@ -29,6 +29,7 @@ answer_messages = texts_faq['answer_messages']
 
 @faq_router.message(F.text == start_handler_button)
 @faq_router.message(F.text == start_back_handler_button)
+@faq_router.message(Command(commands=command))
 async def faq(message: types.Message, state: FSMContext, dialog_manager: DialogManager):
     try:
         await dialog_manager.done()
