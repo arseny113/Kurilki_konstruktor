@@ -15,20 +15,17 @@ from src.dialogs.Cart.cart_dialogs import Cart
 from aiogram_dialog import setup_dialogs
 from src.handlers.order import order_router
 
+from src.utils.config_funcs import names_2_routers
+
+from ConfigFromJsonToDict import config_data
+
+router_names = config_data['routers']
 
 async def main():
     await async_main()
-    dp.include_router(router)
-    dp.include_router(registration_router)
-    dp.include_router(account_router)
-    dp.include_router(catalog_router)
-    dp.include_router(settings_router)
-    dp.include_router(faq_router)
-    dp.include_router(cart_router)
-    dp.include_router(order_router)
-    dp.include_router(help_router)
-    dp.include_router(Catalog)
-    dp.include_router(Cart)
+    routers = names_2_routers(router_names)
+    for router in routers:
+        dp.include_router(router)
     setup_dialogs(dp)
     await set_main_menu(bot)
     await dp.start_polling(bot)

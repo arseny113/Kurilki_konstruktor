@@ -5,7 +5,7 @@ from aiogram.fsm.state import default_state
 
 import src.keyboards.default.reply as kb
 import src.states.user as user_states
-from src.data.config import SUPPORT_ID
+from src.data.config import SUPPORT_IDS
 from src.bot import bot
 
 from ConfigFromJsonToDict import config_data
@@ -45,8 +45,8 @@ async def write(message: types.Message, state: FSMContext):
 @help_router.message(StateFilter(user_states.UserFSM.write_message))
 async def message_to_support(message: types.Message, state: FSMContext):
     await message.answer(answer_messages['message_to_support_arrived'], reply_markup=kb.help_kb)
-
-    await bot.send_message(SUPPORT_ID, eval(answer_messages['to_support_message']))
+    for SUPPORT_ID in SUPPORT_IDS:
+        await bot.send_message(SUPPORT_ID, eval(answer_messages['to_support_message']))
     await state.set_state(user_states.UserFSM.help_menu)
 
 

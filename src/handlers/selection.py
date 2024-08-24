@@ -6,9 +6,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state
 
 import src.database.requests as rq
-import src.keyboards.default.selection_btns as kb
+"""import src.keyboards.default.selection_btns as kb"""
 import src.states.user as user_states
-import src.dialogs.Selection.selection_states as selection_states
+"""import src.dialogs.Selection.selection_states as selection_states"""
 
 selection_router = Router()
 

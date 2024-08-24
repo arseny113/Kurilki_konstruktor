@@ -1,17 +1,19 @@
 from environs import Env
-
+from ConfigFromJsonToDict import config_data
 env = Env()
 env.read_env()
 
-BOT_TOKEN = env('BOT_TOKEN')
-SUPPORT_ID = env('SUPPORT_ID')
-MANAGER_ID = env.int('MANAGER_ID')
+service_settings = config_data['service_settings']
 
-DB_USER = env('DB_USER')
-DB_PASS = env('DB_PASS')
-DB_HOST = env('DB_HOST')
-DB_PORT = env('DB_PORT')
-DB_NAME = env('DB_NAME')
+BOT_TOKEN = service_settings['bot_token']
+SUPPORT_IDS = service_settings['support_ids']
+MANAGER_ID = service_settings['manager_id']
+
+DB_USER = service_settings['db_user']
+DB_PASS = service_settings['db_pass']
+DB_HOST = service_settings['db_host']
+DB_PORT = service_settings['db_port']
+DB_NAME = service_settings['db_name']
 
 
 def database_url_asyncpg(DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME):

@@ -277,14 +277,16 @@
     },
     "routers": [
         "router",
+        "account_router",
         "help_router",
-        "selection",
         "cart_router",
-        "selection_router",
+        "catalog_router",
         "settings_router",
         "registration_router",
         "order_router",
-        "payment_router"
+        "faq_router",
+        "Catalog",
+        "Cart"
     ],
     "commands": [
         "start",
@@ -296,8 +298,14 @@
         "faq"
     ],
     "service_settings": {
-        "bot_token": "DNiADbfASJfEUEKBJEFEESsadffe",
-        "support_id": "642500259"
+        "bot_token": "7187931260:AAHZXNhRpq7ApIEFxlFy1y0RGyH1_SRh3fk",
+        "support_ids": ["365189030"],
+        "manager_id": "365189030",
+        "db_user": "postgres",
+        "db_pass": "vaolt535",
+        "db_host": "localhost",
+        "db_port": "5432",
+        "db_name": "kurilki_base"
     }
 }
 
