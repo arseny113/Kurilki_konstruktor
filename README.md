@@ -1,1 +1,1 @@
-# Kurilki bot
+# Конструктор магазинов Telegram
